@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎰 스마트 로또 생성기 - 통계 기반 번호 추천</title>
+    <link rel="stylesheet" href="css/lotto.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎰 스마트 로또 생성기</h1>
+            <p>과거 당첨 번호 분석을 통한 통계 기반 번호 추천 시스템</p>
+        </div>
+        
+        <div class="lotto-section">
+            <div class="generator-box">
+                <h2>🎯 스마트 번호 생성</h2>
+                <div class="number-display" id="lottoNumbers">
+                    <div class="lotto-ball ball-1">?</div>
+                    <div class="lotto-ball ball-2">?</div>
+                    <div class="lotto-ball ball-3">?</div>
+                    <div class="lotto-ball ball-4">?</div>
+                    <div class="lotto-ball ball-5">?</div>
+                    <div class="lotto-ball ball-6">?</div>
+                </div>
+                <button class="btn" onclick="generateSmartNumbers()">🎲 스마트 번호 생성</button>
+                <button class="btn" onclick="generateRandomNumbers()">🎰 랜덤 번호 생성</button>
+                <button class="btn" onclick="analyzeNumbers()">📊 번호 분석</button>
+            </div>
+            
+            <div class="stats-box">
+                <h2>📈 통계 정보</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="totalDraws">0</div>
+                        <div class="stat-label">총 추첨 횟수</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="mostFrequent">-</div>
+                        <div class="stat-label">최다 출현 번호</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="leastFrequent">-</div>
+                        <div class="stat-label">최소 출현 번호</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="avgSum">0</div>
+                        <div class="stat-label">평균 합계</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="analysis-section">
+            <h2>📊 번호별 출현 빈도 분석</h2>
+            <div class="chart-container">
+                <div id="frequencyChart"></div>
+            </div>
+            
+            <h2>🔍 패턴 분석</h2>
+            <div class="chart-container">
+                <div id="patternAnalysis">
+                    <p>📈 연속 번호 패턴: <span id="consecutivePattern">분석 중...</span></p>
+                    <p>🎯 홀짝 비율: <span id="oddEvenRatio">분석 중...</span></p>
+                    <p>📊 구간별 분포: <span id="rangeDistribution">분석 중...</span></p>
+                </div>
+            </div>
+            
+            <h2>🎯 고급 분석</h2>
+            <div class="chart-container">
+                <div id="advancedAnalysis">
+                    <div class="analysis-grid">
+                        <div class="analysis-item">
+                            <h3>🔥 핫 번호 (최근 많이 나온 번호)</h3>
+                            <div id="hotNumbers" class="number-list"></div>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>❄️ 콜드 번호 (최근 적게 나온 번호)</h3>
+                            <div id="coldNumbers" class="number-list"></div>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>⏰ 오버듀 번호 (오랫동안 안 나온 번호)</h3>
+                            <div id="overdueNumbers" class="number-list"></div>
+                        </div>
+                        <div class="analysis-item">
+                            <h3>📊 합계 분포</h3>
+                            <div id="sumDistribution" class="sum-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h2>📝 데이터 관리</h2>
+            <div class="data-input">
+                <h3>새로운 당첨번호 추가</h3>
+                <input type="text" id="newNumbers" placeholder="예: 7,12,15,20,25,33">
+                <button onclick="addNewNumbers()">추가</button>
+                <button onclick="loadDataFromFile()">파일에서 불러오기</button>
+                <button onclick="saveDataToFile()">파일로 저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/lotto.js"></script>
+</body>
+</html>
