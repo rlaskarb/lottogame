@@ -47,7 +47,7 @@ window.onload = async function () { // 'async' 키워드 추가
 
         } catch (error) {
             console.error('lotto.json 파일을 불러오는 중 오류가 발생했습니다:', error);
-            alert('기본 로또 데이터를 불러오는 데 실패했습니다.');
+            alert(' 로또 데이터를 불러오는 데 실패했습니다.');
         }
     } else {
         console.log("로컬 스토리지에서 데이터를 성공적으로 불러왔습니다.");
