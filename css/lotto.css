@@ -344,7 +344,7 @@ body {
 
 
 .container {
-    width: 90%;
+    width: 96%;
     margin: 30px auto;
 }
 
@@ -407,8 +407,31 @@ body {
 }
 
 
-.analysis-section {
+#frequencyChart{
     display: none;
+}
+
+
+
+.analysis-section {
+    width: 100%;
+    background: linear-gradient(45deg, #a8edea, #fed6e3);
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.chart-container {
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    padding: 30px 15px;
+    margin: 15px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+    p{
+        margin-bottom: 15px;
+    }
 }
 
 

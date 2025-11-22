@@ -25,8 +25,13 @@
                     <div class="lotto-ball ball-5">?</div>
                     <div class="lotto-ball ball-6">?</div>
                 </div>
-                <button class="btn" onclick="generateSmartNumbers()">🎲 스마트 번호 생성</button>
-                <button class="btn" onclick="generateRandomNumbers()">🎰 랜덤 번호 생성</button>
+               <button class="btn" onclick="generateStrategyNumbers('hot')">🔥 많이 나온 번호</button>
+    
+    <button class="btn" onclick="generateStrategyNumbers('cold')">❄️ 적게 나온 번호</button>
+    
+    <button class="btn" onclick="generateStrategyNumbers('overdue')">⏰ 안 나온 번호</button>
+    
+    <button class="btn" onclick="generateRandomNumbers()">🎰 랜덤 번호 생성</button>
                 <button class="btn" onclick="analyzeNumbers()">📊 번호 분석</button>
             </div>
 

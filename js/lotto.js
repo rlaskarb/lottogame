@@ -314,43 +314,39 @@ function performAdvancedAnalysis() {
     });
 }
 
-// 스마트 번호 생성 (고급 통계 기반)
-function generateSmartNumbers() {
+// 전략별 번호 생성 (버튼 클릭 시 실행됨)
+function generateStrategyNumbers(strategyType) {
+    // 1. 분석 데이터 최신화
     performAdvancedAnalysis();
+    
     const numbers = [];
+    let strategyName = "";
 
-    // 전략 선택 (랜덤하게 선택)
-    const strategies = ['hotNumbers', 'coldNumbers', 'overdueNumbers', 'balanced'];
-    const selectedStrategy = strategies[Math.floor(Math.random() * strategies.length)];
-
-    switch (selectedStrategy) {
-        case 'hotNumbers':
-            // 핫 번호 위주로 선택
+    // 2. 선택된 전략에 따라 번호 조합
+    switch (strategyType) {
+        case 'hot':
+            // 핫 번호 전략: 핫 번호에서 3개 + 전체에서 3개
             numbers.push(...selectFromPool(advancedStats.hotNumbers, 3));
             numbers.push(...selectFromPool(getAllNumbers(), 3));
+            strategyName = "🔥 최근 많이 나온 번호 위주";
             break;
 
-        case 'coldNumbers':
-            // 콜드 번호 위주로 선택
+        case 'cold':
+            // 콜드 번호 전략: 콜드 번호에서 3개 + 전체에서 3개
             numbers.push(...selectFromPool(advancedStats.coldNumbers, 3));
             numbers.push(...selectFromPool(getAllNumbers(), 3));
+            strategyName = "❄️ 최근 적게 나온 번호 위주";
             break;
 
-        case 'overdueNumbers':
-            // 오버듀 번호 위주로 선택
+        case 'overdue':
+            // 오버듀 전략: 오버듀 번호에서 4개 + 전체에서 2개
             numbers.push(...selectFromPool(advancedStats.overdueNumbers, 4));
             numbers.push(...selectFromPool(getAllNumbers(), 2));
-            break;
-
-        case 'balanced':
-            // 균형잡힌 선택
-            numbers.push(...selectFromPool(advancedStats.hotNumbers, 2));
-            numbers.push(...selectFromPool(advancedStats.coldNumbers, 2));
-            numbers.push(...selectFromPool(advancedStats.overdueNumbers, 2));
+            strategyName = "⏰ 오랫동안 안 나온 번호 위주";
             break;
     }
 
-    // 중복 제거 및 6개로 맞추기
+    // 3. 중복 제거 및 6개 채우기 (부족하면 랜덤으로 채움)
     const uniqueNumbers = [...new Set(numbers)];
     while (uniqueNumbers.length < 6) {
         const randomNum = Math.floor(Math.random() * 45) + 1;
@@ -359,11 +355,15 @@ function generateSmartNumbers() {
         }
     }
 
-    displayNumbers(uniqueNumbers.slice(0, 6).sort((a, b) => a - b));
+    // 4. 번호 정렬 및 화면 표시
+    const finalNumbers = uniqueNumbers.slice(0, 6).sort((a, b) => a - b);
+    displayNumbers(finalNumbers);
 
-    // 사용된 전략 표시
-    showStrategyInfo(selectedStrategy);
+    // 5. 어떤 전략으로 생성되었는지 알림 (선택 사항 - 너무 자주 뜨면 주석 처리하세요)
+    // alert(`${strategyName}로 생성되었습니다!`); 
+    console.log(`생성 전략: ${strategyName}`);
 }
+
 
 // 풀에서 번호 선택
 function selectFromPool(pool, count) {
