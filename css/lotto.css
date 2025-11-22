@@ -20,7 +20,7 @@ body {
 .container {
     width: 100%;
     background: #fff;
-    border: 1px solid blue;
+
     border-radius: 20px;
     padding: 10px;
 }
@@ -345,6 +345,7 @@ body {
 
 .container {
     width: 90%;
+    margin: 30px auto;
 }
 
 .header {
