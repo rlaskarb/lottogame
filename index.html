@@ -32,7 +32,7 @@
     <button class="btn" onclick="generateStrategyNumbers('overdue')">⏰ 안 나온 번호</button>
     
     <button class="btn" onclick="generateRandomNumbers()">🎰 랜덤 번호 생성</button>
-                <button class="btn" onclick="analyzeNumbers()">📊 번호 분석</button>
+            
             </div>
 
             <div class="stats-box">
@@ -69,7 +69,6 @@
                 <div id="patternAnalysis">
                     <p>📈 연속 번호 패턴: <span id="consecutivePattern">분석 중...</span></p>
                     <p>🎯 홀짝 비율: <span id="oddEvenRatio">분석 중...</span></p>
-                    <p>📊 구간별 분포: <span id="rangeDistribution">분석 중...</span></p>
                 </div>
             </div>
 
@@ -78,26 +77,21 @@
                 <div id="advancedAnalysis">
                     <div class="analysis-grid">
                         <div class="analysis-item">
-                            <h3>🔥 핫 번호 (최근 많이 나온 번호)</h3>
+                            <h3>🔥 최근 많이 나온 번호</h3>
                             <div id="hotNumbers" class="number-list"></div>
                         </div>
                         <div class="analysis-item">
-                            <h3>❄️ 콜드 번호 (최근 적게 나온 번호)</h3>
+                            <h3>❄️ 최근 적게 나온 번호</h3>
                             <div id="coldNumbers" class="number-list"></div>
                         </div>
                         <div class="analysis-item">
-                            <h3>⏰ 오버듀 번호 (오랫동안 안 나온 번호)</h3>
+                            <h3>⏰오랫동안 안 나온 번호</h3>
                             <div id="overdueNumbers" class="number-list"></div>
                         </div>
-                        <div class="analysis-item">
-                            <h3>📊 합계 분포</h3>
-                            <div id="sumDistribution" class="sum-chart"></div>
-                        </div>
+                       
                     </div>
                 </div>
-            </div>
-
-         
+            </div>    
     </div>
 
     <script src="js/lotto.js"></script>

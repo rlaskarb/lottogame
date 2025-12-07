@@ -158,23 +158,7 @@ function loadDataFromFile() {
     input.click();
 }
 
-// 파일로 데이터 저장
-function saveDataToFile() {
-    const data = {
-        history: lottoHistory,
-        lastUpdated: new Date().toISOString()
-    };
 
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'lotto_data.json';
-    a.click();
-
-    URL.revokeObjectURL(url);
-}
 
 // 과거 데이터 분석
 function analyzeHistoricalData() {
@@ -208,25 +192,34 @@ function updateStatistics() {
     }
 }
 
-// 빈도 차트 생성
+// 빈도 차트 생성 (심플 모드)
 function generateFrequencyChart() {
     const chartContainer = document.getElementById('frequencyChart');
     chartContainer.innerHTML = '';
 
+    // 스타일을 위해 컨테이너에 클래스 추가 (그리드 레이아웃용)
+    chartContainer.classList.add('simple-grid'); 
+
     // 1-45 번호별 빈도 표시
     for (let i = 1; i <= 45; i++) {
         const frequency = numberFrequency[i] || 0;
-        const maxFreq = Math.max(...Object.values(numberFrequency));
-        const percentage = maxFreq > 0 ? (frequency / maxFreq) * 100 : 0;
+        
+        // 막대바(bar) 태그를 제거하고 숫자와 횟수만 남김
+        const frequencyItem = document.createElement('div');
+        frequencyItem.className = 'frequency-item'; // 이름 변경 (bar -> item)
+        
+        // 번호에 따라 색상을 다르게 주는 센스 (공 색깔 처럼)
+        let ballColorClass = 'ball-10'; // 기본 노랑
+        if (i >= 11 && i <= 20) ballColorClass = 'ball-20'; // 파랑
+        else if (i >= 21 && i <= 30) ballColorClass = 'ball-30'; // 빨강
+        else if (i >= 31 && i <= 40) ballColorClass = 'ball-40'; // 검정
+        else if (i >= 41) ballColorClass = 'ball-50'; // 초록
 
-        const frequencyBar = document.createElement('div');
-        frequencyBar.className = 'frequency-bar';
-        frequencyBar.innerHTML = `
-            <div class="number-label">${i}</div>
-            <div class="bar" style="width: ${percentage}%"></div>
+        frequencyItem.innerHTML = `
+            <div class="number-circle ${ballColorClass}">${i}</div>
             <div class="frequency-text">${frequency}회</div>
         `;
-        chartContainer.appendChild(frequencyBar);
+        chartContainer.appendChild(frequencyItem);
     }
 }
 
@@ -259,62 +252,50 @@ function updatePatternAnalysis() {
     document.getElementById('oddEvenRatio').textContent =
         `홀수 ${(oddCount / totalNumbers * 100).toFixed(1)}% : 짝수 ${(evenCount / totalNumbers * 100).toFixed(1)}%`;
 
-    // 구간별 분포 분석
-    const ranges = { '1-15': 0, '16-30': 0, '31-45': 0 };
-    lottoHistory.forEach(draw => {
-        draw.forEach(num => {
-            if (num <= 15) ranges['1-15']++;
-            else if (num <= 30) ranges['16-30']++;
-            else ranges['31-45']++;
-        });
-    });
-
-    document.getElementById('rangeDistribution').textContent =
-        `1-15: ${(ranges['1-15'] / totalNumbers * 100).toFixed(1)}%, 16-30: ${(ranges['16-30'] / totalNumbers * 100).toFixed(1)}%, 31-45: ${(ranges['31-45'] / totalNumbers * 100).toFixed(1)}%`;
 }
+
 
 // 고급 통계 분석
 function performAdvancedAnalysis() {
-    // 최근 10회 데이터로 핫/콜드 번호 분석
-    const recentDraws = lottoHistory.slice(0, 10);
-    const recentFrequency = {};
+    // 1. 핫/콜드 분석: 전체 데이터 사용
+    const allDraws = lottoHistory; 
+    const totalFrequency = {};
 
-    recentDraws.forEach(draw => {
+    allDraws.forEach(draw => {
         draw.forEach(num => {
-            recentFrequency[num] = (recentFrequency[num] || 0) + 1;
+            totalFrequency[num] = (totalFrequency[num] || 0) + 1;
         });
     });
 
-    // 핫/콜드 번호 분류
-    const sortedByFrequency = Object.entries(recentFrequency)
+    // 빈도수대로 정렬
+    const sortedByFrequency = Object.entries(totalFrequency)
         .sort((a, b) => b[1] - a[1]);
 
-    advancedStats.hotNumbers = sortedByFrequency.slice(0, 10).map(item => parseInt(item[0]));
-    advancedStats.coldNumbers = sortedByFrequency.slice(-10).map(item => parseInt(item[0]));
+    // 상위 15개를 핫 번호 후보로 선정 (이 중에서 4개 뽑음)
+    advancedStats.hotNumbers = sortedByFrequency.slice(0, 15).map(item => parseInt(item[0]));
+    
+    // 하위 15개를 콜드 번호 후보로 선정
+    advancedStats.coldNumbers = sortedByFrequency.slice(-15).map(item => parseInt(item[0]));
 
-    // 오버듀 번호 (최근 5회에 안 나온 번호)
+    // 2. 오버듀(미출현) 분석: 최근 10회 기준 설정
+    const recent10Draws = lottoHistory.slice(0, 10);
     const recentNumbers = new Set();
-    recentDraws.slice(0, 5).forEach(draw => {
+    
+    recent10Draws.forEach(draw => {
         draw.forEach(num => recentNumbers.add(num));
     });
 
     advancedStats.overdueNumbers = [];
     for (let i = 1; i <= 45; i++) {
+        // 최근 10회 안에 한 번도 안 나왔다면 추가
         if (!recentNumbers.has(i)) {
             advancedStats.overdueNumbers.push(i);
         }
     }
-
-    // 합계 분포 분석
-    advancedStats.sumDistribution = {};
-    lottoHistory.forEach(draw => {
-        const sum = draw.reduce((a, b) => a + b, 0);
-        const range = Math.floor(sum / 20) * 20; // 20단위로 그룹화
-        advancedStats.sumDistribution[range] = (advancedStats.sumDistribution[range] || 0) + 1;
-    });
 }
 
-// 전략별 번호 생성 (버튼 클릭 시 실행됨)
+
+// 전략별 번호 생성 (비율 수정됨)
 function generateStrategyNumbers(strategyType) {
     // 1. 분석 데이터 최신화
     performAdvancedAnalysis();
@@ -325,28 +306,29 @@ function generateStrategyNumbers(strategyType) {
     // 2. 선택된 전략에 따라 번호 조합
     switch (strategyType) {
         case 'hot':
-            // 핫 번호 전략: 핫 번호에서 3개 + 전체에서 3개
-            numbers.push(...selectFromPool(advancedStats.hotNumbers, 3));
-            numbers.push(...selectFromPool(getAllNumbers(), 3));
-            strategyName = "🔥 최근 많이 나온 번호 위주";
+            // 🔥 전략: 전체 통계 핫 번호 4개 + 랜덤 번호 2개
+            numbers.push(...selectFromPool(advancedStats.hotNumbers, 2));
+            numbers.push(...selectFromPool(getAllNumbers(), 4)); 
+            strategyName = "🔥 핫(2) + 랜덤(4) 조합";
             break;
 
         case 'cold':
-            // 콜드 번호 전략: 콜드 번호에서 3개 + 전체에서 3개
-            numbers.push(...selectFromPool(advancedStats.coldNumbers, 3));
-            numbers.push(...selectFromPool(getAllNumbers(), 3));
-            strategyName = "❄️ 최근 적게 나온 번호 위주";
+            // ❄️ 전략: 전체 통계 콜드 번호 4개 + 핫 번호 2개
+            numbers.push(...selectFromPool(advancedStats.coldNumbers, 2));
+            numbers.push(...selectFromPool(advancedStats.hotNumbers, 4)); 
+            strategyName = "❄️ 콜드(2) + 핫(4) 조합";
             break;
 
         case 'overdue':
-            // 오버듀 전략: 오버듀 번호에서 4개 + 전체에서 2개
-            numbers.push(...selectFromPool(advancedStats.overdueNumbers, 4));
-            numbers.push(...selectFromPool(getAllNumbers(), 2));
-            strategyName = "⏰ 오랫동안 안 나온 번호 위주";
+            // ⏰ 전략: 최근 10회 미출현 번호 4개 + 핫 번호 2개
+            // 만약 미출현 번호가 4개가 안 되면 나머지는 랜덤으로 채워짐
+            numbers.push(...selectFromPool(advancedStats.overdueNumbers, 2));
+            numbers.push(...selectFromPool(advancedStats.hotNumbers, 4)); 
+            strategyName = "⏰ 미출현(2) + 핫(4) 조합";
             break;
     }
 
-    // 3. 중복 제거 및 6개 채우기 (부족하면 랜덤으로 채움)
+    // 3. 중복 제거 및 6개 채우기 (혹시 모자라면 랜덤으로 채움)
     const uniqueNumbers = [...new Set(numbers)];
     while (uniqueNumbers.length < 6) {
         const randomNum = Math.floor(Math.random() * 45) + 1;
@@ -359,11 +341,11 @@ function generateStrategyNumbers(strategyType) {
     const finalNumbers = uniqueNumbers.slice(0, 6).sort((a, b) => a - b);
     displayNumbers(finalNumbers);
 
-    // 5. 어떤 전략으로 생성되었는지 알림 (선택 사항 - 너무 자주 뜨면 주석 처리하세요)
-    // alert(`${strategyName}로 생성되었습니다!`); 
+    // 로그 확인용
     console.log(`생성 전략: ${strategyName}`);
+    console.log(`선택된 번호: ${finalNumbers}`);
 }
-
+    
 
 // 풀에서 번호 선택
 function selectFromPool(pool, count) {
@@ -387,8 +369,7 @@ function showStrategyInfo(strategy) {
     const strategyNames = {
         'hotNumbers': '🔥 핫 번호 전략',
         'coldNumbers': '❄️ 콜드 번호 전략',
-        'overdueNumbers': '⏰ 오버듀 번호 전략',
-        'balanced': '⚖️ 균형 전략'
+        'overdueNumbers': '⏰ 오버듀 번호 전략'
     };
 
     setTimeout(() => {
@@ -427,30 +408,8 @@ function updateAdvancedAnalysis() {
         tag.textContent = num;
         overdueNumbersContainer.appendChild(tag);
     });
-
-    // 합계 분포 차트 표시
-    const sumDistributionContainer = document.getElementById('sumDistribution');
-    sumDistributionContainer.innerHTML = '';
-
-    const maxCount = Math.max(...Object.values(advancedStats.sumDistribution));
-
-    Object.entries(advancedStats.sumDistribution)
-        .sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
-        .forEach(([range, count]) => {
-            const percentage = (count / maxCount) * 100;
-
-            const sumBar = document.createElement('div');
-            sumBar.className = 'sum-bar';
-            sumBar.innerHTML = `
-                <div class="sum-label">${range}-${parseInt(range) + 19}</div>
-                <div class="sum-progress">
-                    <div class="sum-fill" style="width: ${percentage}%"></div>
-                </div>
-                <div class="sum-count">${count}회</div>
-            `;
-            sumDistributionContainer.appendChild(sumBar);
-        });
 }
+
 
 // 랜덤 번호 생성
 function generateRandomNumbers() {
@@ -476,17 +435,7 @@ function displayNumbers(numbers) {
     });
 }
 
-// 번호 분석
-function analyzeNumbers() {
-    const balls = document.querySelectorAll('.lotto-ball');
-    const currentNumbers = Array.from(balls).map(ball => parseInt(ball.textContent)).filter(num => !isNaN(num));
 
-    if (currentNumbers.length === 6) {
-        alert(`선택된 번호: ${currentNumbers.join(', ')}\n\n분석 결과:\n- 합계: ${currentNumbers.reduce((a, b) => a + b, 0)}\n- 홀수: ${currentNumbers.filter(n => n % 2 === 1).length}개\n- 짝수: ${currentNumbers.filter(n => n % 2 === 0).length}개\n- 연속번호: ${getConsecutiveCount(currentNumbers)}개`);
-    } else {
-        alert('먼저 번호를 생성해주세요!');
-    }
-}
 
 // 연속 번호 개수 계산
 function getConsecutiveCount(numbers) {
