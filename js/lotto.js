@@ -271,7 +271,7 @@ function performAdvancedAnalysis() {
     const sortedByFrequency = Object.entries(totalFrequency)
         .sort((a, b) => b[1] - a[1]);
 
-    // 상위 15개를 핫 번호 후보로 선정 (이 중에서 4개 뽑음)
+    // 상위 15개를 핫 번호 후보로 선정 
     advancedStats.hotNumbers = sortedByFrequency.slice(0, 15).map(item => parseInt(item[0]));
     
     // 하위 15개를 콜드 번호 후보로 선정
@@ -295,7 +295,7 @@ function performAdvancedAnalysis() {
 }
 
 
-// 전략별 번호 생성 (비율 수정됨)
+// 전략별 번호 생성 
 function generateStrategyNumbers(strategyType) {
     // 1. 분석 데이터 최신화
     performAdvancedAnalysis();
@@ -306,29 +306,28 @@ function generateStrategyNumbers(strategyType) {
     // 2. 선택된 전략에 따라 번호 조합
     switch (strategyType) {
         case 'hot':
-            // 🔥 전략: 전체 통계 핫 번호 4개 + 랜덤 번호 2개
+           
             numbers.push(...selectFromPool(advancedStats.hotNumbers, 2));
             numbers.push(...selectFromPool(getAllNumbers(), 4)); 
             strategyName = "🔥 핫(2) + 랜덤(4) 조합";
             break;
 
         case 'cold':
-            // ❄️ 전략: 전체 통계 콜드 번호 4개 + 핫 번호 2개
+            
             numbers.push(...selectFromPool(advancedStats.coldNumbers, 2));
             numbers.push(...selectFromPool(advancedStats.hotNumbers, 4)); 
             strategyName = "❄️ 콜드(2) + 핫(4) 조합";
             break;
 
         case 'overdue':
-            // ⏰ 전략: 최근 10회 미출현 번호 4개 + 핫 번호 2개
-            // 만약 미출현 번호가 4개가 안 되면 나머지는 랜덤으로 채워짐
+            // ⏰ 최근 10회 미출현 번호  
             numbers.push(...selectFromPool(advancedStats.overdueNumbers, 2));
             numbers.push(...selectFromPool(advancedStats.hotNumbers, 4)); 
             strategyName = "⏰ 미출현(2) + 핫(4) 조합";
             break;
     }
 
-    // 3. 중복 제거 및 6개 채우기 (혹시 모자라면 랜덤으로 채움)
+    // 3. 중복 제거 및 6개 채우기 
     const uniqueNumbers = [...new Set(numbers)];
     while (uniqueNumbers.length < 6) {
         const randomNum = Math.floor(Math.random() * 45) + 1;
@@ -434,7 +433,6 @@ function displayNumbers(numbers) {
         }, index * 100);
     });
 }
-
 
 
 // 연속 번호 개수 계산
