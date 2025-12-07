@@ -1,6 +1,6 @@
 # lottogame
 그냥 당첨번호 데이터 넣어서 만들어봤는데 당첨되는 경우에수는 그냥 자동과 똑같으니까 아무런 의미없는 그냥 운빨게임 
-- [로또 1등 당첨되러 바로가기 ](https://rlaskarb20.mycafe24.com/lotto/)
+# 🧩 [로또 1등 당첨되러 바로가기 ](https://rlaskarb20.mycafe24.com/lotto/) 🧩
 <img width="2560" height="2606" alt="image" src="https://github.com/user-attachments/assets/a63d1862-cc66-4473-987f-aaf88a9e6fee" />
 
 
