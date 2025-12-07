@@ -37,7 +37,7 @@ window.onload = async function () { // 'async' 키워드 추가
 
             // json 파일의 구조(history 키)에 맞게 lottoHistory 변수에 할당합니다.
             if (data && data.history) {
-                lottoHistory = data.history;
+                lottoHistory = data.history.reverse();
 
                 // (선택사항) 다음 로드를 위해 json 데이터를 로컬 스토리지에 저장합니다.
                 saveDataToStorage();
