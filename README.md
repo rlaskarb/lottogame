@@ -1,10 +1,11 @@
 # lottogame
-그냥 당첨번호 데이터 넣어서 만들어봤는데 당첨되는 경우에수는 그냥 자동과 똑같으니까 아무런 의미없는 그냥 운빨게임 
+운빨 게임을 조금 더 재미있게 하기위한 나름 노력한 로또 당첨기 
 # 🧩 [로또 1등 당첨되러 바로가기 ](https://rlaskarb20.mycafe24.com/lotto/) 🧩
-<img width="2560" height="2606" alt="image" src="https://github.com/user-attachments/assets/a63d1862-cc66-4473-987f-aaf88a9e6fee" />
+<img width="2510" height="1538" alt="image" src="https://github.com/user-attachments/assets/a0bc4230-c200-401c-89ee-79666434fbcf" />
 
 
-재미로 하실분은 이용해주세요 
+
+재미로 하실분은 이용해주세요  많이 많이 !!
 
 많이 나온 번호 = 가장 많이 나온번호 15개중 랜덤 2개  + 그냥 랜덤 4개
 
