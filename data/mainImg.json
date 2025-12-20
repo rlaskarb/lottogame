@@ -1,13 +1,13 @@
 {
   "name": "스마트 로또 생성기",
   "short_name": "로또생성기",
-  "start_url": "https://rlaskarb20.mycafe24.com/lotto/",
+  "start_url": "../index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "data/loto.png",
+      "src": "./loto.png",
       "sizes": "192x192",
       "type": "image/png"
     }

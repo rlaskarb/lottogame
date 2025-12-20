@@ -18,7 +18,8 @@ body {
 }
 
 .container {
-  width: 100%;
+  width: 87%;
+  margin: 0 auto;
   background: #fff;
 
   border-radius: 20px;
@@ -57,13 +58,17 @@ body {
   padding: 25px;
   text-align: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 40px;
+  }
 }
 
 .stats-box {
   width: 100%;
   background: linear-gradient(45deg, #48cae4, #023e8a);
   border-radius: 15px;
-  padding: 25px;
+  padding: 10px;
   color: white;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
@@ -72,20 +77,20 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 35px;
+  margin: 35px 0;
   flex-wrap: wrap;
 }
 
 .lotto-ball {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 25px;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -127,17 +132,26 @@ body {
   }
 }
 
+.number-btn {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 10px;
+}
+
 .btn {
   background: linear-gradient(45deg, #667eea, #764ba2);
   color: white;
   border: none;
-  padding: 15px 30px;
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: bold;
+  padding: 10px 17px;
+  border-radius: 15px;
+  font-size: 21px;
+  font-weight: 800;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin: 10px;
+  margin: 20px 6px 5px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -148,6 +162,16 @@ body {
 
 .btn:active {
   transform: translateY(0);
+}
+
+.latest-draw-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  margin: 20px 0;
 }
 
 .stats-grid {
@@ -220,7 +244,8 @@ body {
 }
 
 .analysis-grid {
-  width: 100%;
+  width: 91%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
@@ -228,6 +253,7 @@ body {
 }
 
 .analysis-item {
+  width: 90%;
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
@@ -244,7 +270,7 @@ body {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   justify-content: center;
 }
 
@@ -358,36 +384,33 @@ body {
   flex-direction: column; /* 위아래로 배치 */
   align-items: center;
   justify-content: center;
-  background: white;
-  padding: 10px 5px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
-}
-
-.frequency-item:hover {
-  transform: translateY(-3px); /* 마우스 올리면 살짝 뜸 */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
 }
 
 /* 번호 동그라미 디자인 */
 .number-circle {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   color: white; /* 글자색 흰색 */
-  margin-bottom: 5px;
-  font-size: 14px;
-  background-color: #ddd; /* 기본 색상 */
+  font-size: 18px;
+}
+
+.bonus-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 /* 횟수 텍스트 */
 .frequency-text {
-  font-size: 13px;
+  margin-top: 15px;
+  font-size: 16px;
   color: #555;
   font-weight: 600;
 }
@@ -414,7 +437,7 @@ body {
 
 @media (max-width: 470px) {
   .container {
-    width: 96%;
+    width: 95%;
     margin: 30px auto;
   }
 
@@ -433,8 +456,8 @@ body {
     width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1px;
-    margin-bottom: 40px;
+    gap: 30px;
+    margin-bottom: 30px;
   }
 
   .generator-box {
@@ -445,31 +468,83 @@ body {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
 
-  .stats-box {
-    display: none;
-  }
-
   .number-display {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin: 10px 0;
+    margin: 30px 0;
     flex-wrap: wrap;
   }
 
   .lotto-ball {
-    width: 41px;
-    height: 41px;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .number-btn {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0 10px;
   }
 
   .btn {
     background: linear-gradient(45deg, #667eea, #764ba2);
     color: white;
     border: none;
-    padding: 10px 13px;
-    border-radius: 20px;
-    font-size: 16px;
-    margin: 10px 5px;
+    padding: 10px 15px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .latest-draw-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    margin: 20px 0;
+  }
+
+  .stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .stat-item {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    font-size: 18px;
+    opacity: 0.8;
   }
 
   .analysis-section {

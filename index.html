@@ -1,107 +1,118 @@
 <!DOCTYPE html>
 <html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스마트 로또 생성기</title>
+    <link rel="icon" type="image/png" href="./data/loto.png" />
+    <link rel="apple-touch-icon" href="./data/loto.png" />
+    <link rel="manifest" href="./data/mainImg.json" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="stylesheet" href="css/lotto.css" />
+  </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> 스마트 로또 생성기 </title>
-    <link rel="icon" type="image/png" href="./data/loto.png">
-    <link rel="apple-touch-icon" href="./data/loto.png">  
-    <link rel="manifest" href="./data/mainImg.json">
-    <link rel="manifest" href="./mainImg.json">
-    <meta name="theme-color" content="#ffffff">
-
-    <link rel="stylesheet" href="css/lotto.css">
-</head>
-
-<body>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>🎰 스마트 로또 생성기</h1>
+      <div class="header">
+        <h1>🎰 스마트 로또 생성기</h1>
+      </div>
+
+      <div class="lotto-section">
+        <div class="generator-box">
+          <h2>🎯 스마트 번호 생성</h2>
+
+          <div class="number-display" id="lottoNumbers">
+            <div class="lotto-ball ball-1">?</div>
+            <div class="lotto-ball ball-2">?</div>
+            <div class="lotto-ball ball-3">?</div>
+            <div class="lotto-ball ball-4">?</div>
+            <div class="lotto-ball ball-5">?</div>
+            <div class="lotto-ball ball-6">?</div>
+          </div>
+          <div class="number-btn">
+            <button class="btn" onclick="generateStrategyNumbers('hot')">
+              많이 나온 번호
+            </button>
+
+            <button class="btn" onclick="generateStrategyNumbers('cold')">
+              적게 나온 번호
+            </button>
+
+            <button class="btn" onclick="generateStrategyNumbers('overdue')">
+              안 나온 번호
+            </button>
+
+            <button class="btn" onclick="generateRandomNumbers()">
+              랜덤 번호 생성
+            </button>
+          </div>
         </div>
 
-        <div class="lotto-section">
-            <div class="generator-box">
-                <h2>🎯 스마트 번호 생성</h2>
-                <div class="number-display" id="lottoNumbers">
-                    <div class="lotto-ball ball-1">?</div>
-                    <div class="lotto-ball ball-2">?</div>
-                    <div class="lotto-ball ball-3">?</div>
-                    <div class="lotto-ball ball-4">?</div>
-                    <div class="lotto-ball ball-5">?</div>
-                    <div class="lotto-ball ball-6">?</div>
-                </div>
-               <button class="btn" onclick="generateStrategyNumbers('hot')">🔥 많이 나온 번호</button>
-    
-    <button class="btn" onclick="generateStrategyNumbers('cold')">❄️ 적게 나온 번호</button>
-    
-    <button class="btn" onclick="generateStrategyNumbers('overdue')">⏰ 안 나온 번호</button>
-    
-    <button class="btn" onclick="generateRandomNumbers()">🎰 랜덤 번호 생성</button>
-            
+        <div class="stats-box">
+          <h2>📈 실시간 당첨 정보</h2>
+          <div class="latest-draw-container">
+            <h3 id="drawRound">로딩 중...</h3>
+            <div id="latestNumbers" class="number-list"></div>
+          </div>
+          <hr />
+          <h2>📊누적 통계 정보</h2>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-number" id="totalDraws">0</div>
+              <div class="stat-label">총 데이터 입력 횟수</div>
             </div>
+            <div class="stat-item">
+              <div class="stat-number" id="mostFrequent">-</div>
+              <div class="stat-label">최다 출현 번호</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="leastFrequent">-</div>
+              <div class="stat-label">최소 출현 번호</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="stats-box">
-                <h2>📈 통계 정보</h2>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number" id="totalDraws">0</div>
-                        <div class="stat-label">총 추첨 횟수</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="mostFrequent">-</div>
-                        <div class="stat-label">최다 출현 번호</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="leastFrequent">-</div>
-                        <div class="stat-label">최소 출현 번호</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="avgSum">0</div>
-                        <div class="stat-label">평균 합계</div>
-                    </div>
-                </div>
-            </div>
+      <div class="analysis-section">
+        <h2>📊 번호별 출현 빈도 분석</h2>
+
+        <div class="chart-container">
+          <div id="frequencyChart"></div>
         </div>
 
-        <div class="analysis-section">
-            <h2>📊 번호별 출현 빈도 분석</h2>
-            <div class="chart-container">
-                <div id="frequencyChart"></div>
-            </div>
+        <!-- <h2>🔍 패턴 분석</h2>
 
-            <h2>🔍 패턴 분석</h2>
-            <div class="chart-container">
-                <div id="patternAnalysis">
-                    <p>📈 연속 번호 패턴: <span id="consecutivePattern">분석 중...</span></p>
-                    <p>🎯 홀짝 비율: <span id="oddEvenRatio">분석 중...</span></p>
-                </div>
-            </div>
+        <div class="chart-container">
+          <div id="patternAnalysis">
+            <p>
+              📈 연속 번호 패턴: <span id="consecutivePattern">분석 중...</span>
+            </p>
+            <p>🎯 홀짝 비율: <span id="oddEvenRatio">분석 중...</span></p>
+          </div>
+        </div> -->
 
-            <h2>🎯 고급 분석</h2>
-            <div class="chart-container">
-                <div id="advancedAnalysis">
-                    <div class="analysis-grid">
-                        <div class="analysis-item">
-                            <h3>🔥 최근 많이 나온 번호</h3>
-                            <div id="hotNumbers" class="number-list"></div>
-                        </div>
-                        <div class="analysis-item">
-                            <h3>❄️ 최근 적게 나온 번호</h3>
-                            <div id="coldNumbers" class="number-list"></div>
-                        </div>
-                        <div class="analysis-item">
-                            <h3>⏰오랫동안 안 나온 번호</h3>
-                            <div id="overdueNumbers" class="number-list"></div>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>    
+        <h2>🎯 고급 분석</h2>
+        <div class="chart-container">
+          <div id="advancedAnalysis">
+            <div class="analysis-grid">
+              <div class="analysis-item">
+                <h3>🔥 최근 많이 나온 번호</h3>
+                <div id="hotNumbers" class="number-list"></div>
+              </div>
+              <div class="analysis-item">
+                <h3>❄️ 최근 적게 나온 번호</h3>
+                <div id="coldNumbers" class="number-list"></div>
+              </div>
+              <div class="analysis-item">
+                <h3>⏰오랫동안 안 나온 번호</h3>
+                <div id="overdueNumbers" class="number-list"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-
     <script src="js/lotto.js"></script>
-</body>
-
+  </body>
 </html>

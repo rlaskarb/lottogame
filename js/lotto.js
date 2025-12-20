@@ -17,6 +17,9 @@ let advancedStats = {
 
 // 페이지 로드 시 초기화
 window.onload = async function () { // 'async' 키워드 추가
+
+
+
     // 1. 로컬 스토리지에서 먼저 데이터 로드 시도
     const loadedFromStorage = loadDataFromStorage();
 
@@ -53,12 +56,20 @@ window.onload = async function () { // 'async' 키워드 추가
         console.log("로컬 스토리지에서 데이터를 성공적으로 불러왔습니다.");
     }
 
+
+
     // 3. 데이터 로드가 완료된 후(성공하든 실패하든) 분석 함수들을 실행합니다.
     analyzeHistoricalData();
     updateStatistics();
     generateFrequencyChart();
     performAdvancedAnalysis();
     updateAdvancedAnalysis();
+    
+    // 1. 현재 회차 계산
+    const currentRound = calculateCurrentRound();
+    
+    // 2. 최신 당첨 번호 API 호출 (수정한 부분)
+    fetchLatestLotto(currentRound);
 };
 
 // 로컬 스토리지에서 데이터 불러오기
@@ -171,7 +182,7 @@ function analyzeHistoricalData() {
     });
 
     analysisComplete = true;
-    updatePatternAnalysis();
+    // updatePatternAnalysis();
 }
 
 // 통계 업데이트
@@ -186,73 +197,80 @@ function updateStatistics() {
         document.getElementById('mostFrequent').textContent = mostFrequent[0];
         document.getElementById('leastFrequent').textContent = leastFrequent[0];
 
-        // 평균 합계 계산
-        const avgSum = lottoHistory.reduce((sum, draw) => sum + draw.reduce((a, b) => a + b, 0), 0) / lottoHistory.length;
-        document.getElementById('avgSum').textContent = Math.round(avgSum);
     }
 }
+
+
+// 번호와 빈도 텍스트를 받아 공 HTML 요소를 생성하는 공통 함수
+function createBallElement(num, frequencyText = "") {
+    // 1. 색상 클래스 결정 (남규님이 작성한 로직 그대로 활용)
+    let ballColorClass = 'ball-10'; // 1~10: 노랑
+    if (num >= 11 && num <= 20) ballColorClass = 'ball-20'; // 11~20: 파랑
+    else if (num >= 21 && num <= 30) ballColorClass = 'ball-30'; // 21~30: 빨강
+    else if (num >= 31 && num <= 40) ballColorClass = 'ball-40'; // 31~40: 검정
+    else if (num >= 41) ballColorClass = 'ball-50'; // 41~45: 초록
+
+    // 2. 요소 생성 및 클래스 부여
+    const item = document.createElement('div');
+    item.className = 'frequency-item'; // CSS에서 정의한 아이템 레이아웃 클래스
+
+    // 3. 내부 HTML 구조 생성 (숫자 공 + 빈도 텍스트)
+    // frequencyText가 있을 때만 텍스트를 표시하도록 처리
+    const textHtml = frequencyText ? `<div class="frequency-text">${frequencyText}</div>` : '';
+    
+    item.innerHTML = `
+        <div class="number-circle ${ballColorClass}">${num}</div>
+        ${textHtml}
+    `;
+
+    return item;
+}
+
 
 // 빈도 차트 생성 (심플 모드)
 function generateFrequencyChart() {
     const chartContainer = document.getElementById('frequencyChart');
     chartContainer.innerHTML = '';
-
-    // 스타일을 위해 컨테이너에 클래스 추가 (그리드 레이아웃용)
     chartContainer.classList.add('simple-grid'); 
 
-    // 1-45 번호별 빈도 표시
     for (let i = 1; i <= 45; i++) {
         const frequency = numberFrequency[i] || 0;
-        
-        // 막대바(bar) 태그를 제거하고 숫자와 횟수만 남김
-        const frequencyItem = document.createElement('div');
-        frequencyItem.className = 'frequency-item'; // 이름 변경 (bar -> item)
-        
-        // 번호에 따라 색상을 다르게 주는 센스 (공 색깔 처럼)
-        let ballColorClass = 'ball-10'; // 기본 노랑
-        if (i >= 11 && i <= 20) ballColorClass = 'ball-20'; // 파랑
-        else if (i >= 21 && i <= 30) ballColorClass = 'ball-30'; // 빨강
-        else if (i >= 31 && i <= 40) ballColorClass = 'ball-40'; // 검정
-        else if (i >= 41) ballColorClass = 'ball-50'; // 초록
-
-        frequencyItem.innerHTML = `
-            <div class="number-circle ${ballColorClass}">${i}</div>
-            <div class="frequency-text">${frequency}회</div>
-        `;
-        chartContainer.appendChild(frequencyItem);
+        // 공통 함수 호출 (숫자, 빈도 횟수 전달)
+        const ball = createBallElement(i, `${frequency}회`);
+        chartContainer.appendChild(ball);
     }
 }
 
-// 패턴 분석
-function updatePatternAnalysis() {
-    // 연속 번호 패턴 분석
-    let consecutiveCount = 0;
-    lottoHistory.forEach(draw => {
-        const sorted = [...draw].sort((a, b) => a - b);
-        for (let i = 0; i < sorted.length - 1; i++) {
-            if (sorted[i + 1] - sorted[i] === 1) {
-                consecutiveCount++;
-            }
-        }
-    });
+// // 패턴 분석
+// function updatePatternAnalysis() {
+//     // 연속 번호 패턴 분석
+//     let consecutiveCount = 0;
+//     lottoHistory.forEach(draw => {
+//         const sorted = [...draw].sort((a, b) => a - b);
+//         for (let i = 0; i < sorted.length - 1; i++) {
+//             if (sorted[i + 1] - sorted[i] === 1) {
+//                 consecutiveCount++;
+//             }
+//         }
+//     });
 
-    document.getElementById('consecutivePattern').textContent =
-        `평균 ${(consecutiveCount / lottoHistory.length).toFixed(1)}개 연속 번호`;
+//     document.getElementById('consecutivePattern').textContent =
+//         `평균 ${(consecutiveCount / lottoHistory.length).toFixed(1)}개 연속 번호`;
 
-    // 홀짝 비율 분석
-    let oddCount = 0, evenCount = 0;
-    lottoHistory.forEach(draw => {
-        draw.forEach(num => {
-            if (num % 2 === 0) evenCount++;
-            else oddCount++;
-        });
-    });
+//     // 홀짝 비율 분석
+//     let oddCount = 0, evenCount = 0;
+//     lottoHistory.forEach(draw => {
+//         draw.forEach(num => {
+//             if (num % 2 === 0) evenCount++;
+//             else oddCount++;
+//         });
+//     });
 
-    const totalNumbers = oddCount + evenCount;
-    document.getElementById('oddEvenRatio').textContent =
-        `홀수 ${(oddCount / totalNumbers * 100).toFixed(1)}% : 짝수 ${(evenCount / totalNumbers * 100).toFixed(1)}%`;
+//     const totalNumbers = oddCount + evenCount;
+//     document.getElementById('oddEvenRatio').textContent =
+//         `홀수 ${(oddCount / totalNumbers * 100).toFixed(1)}% : 짝수 ${(evenCount / totalNumbers * 100).toFixed(1)}%`;
 
-}
+// }
 
 
 // 고급 통계 분석
@@ -446,3 +464,63 @@ function getConsecutiveCount(numbers) {
     }
     return consecutive;
 }
+
+// 1. 현재 로또 회차 계산 함수 (1회차: 2002-12-07 기준)
+function calculateCurrentRound() {
+    const firstDrawDate = new Date('2002-12-07T21:00:00'); // 1회차 추첨일 기준
+    const today = new Date();
+    const diffTime = today - firstDrawDate;
+    const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
+    
+    // 토요일 21시(추첨 후) 전후 처리를 위해 정교하게 하려면 추가 로직이 필요하지만, 
+    // 기본적으로 '지나온 주 수 + 1'을 하면 현재 회차가 나옵니다.
+    return diffWeeks + 1;
+}
+
+// 2. 외부 API를 통해 당첨 번호 가져오기
+async function fetchLatestLotto(round) {
+    const drawRoundElement = document.getElementById('drawRound');
+    try {
+        const response = await fetch(`./get_lotto.php?drwNo=${round}`);
+        const data = await response.json();
+
+        if (data.returnValue === "success") {
+            displayLatestDraw(data);
+        } else {
+            // 아직 이번 주 당첨 번호가 발표되지 않았을 경우 (토요일 저녁 전)
+            drawRoundElement.textContent = `🎯 제 ${round-1}회 당첨 번호 (최신)`;
+            fetchLatestLotto(round - 1); // 이전 회차 데이터를 가져오도록 재시도
+        }
+    } catch (error) {
+        console.error("데이터 로드 실패:", error);
+        drawRoundElement.textContent = "⚠️ 당첨 정보를 불러올 수 없습니다.";
+    }
+}
+
+// 3. 가져온 번호를 화면에 그리기
+function displayLatestDraw(data) {
+    document.getElementById('drawRound').textContent = `🎯 제 ${data.drwNo}회 당첨 번호`;
+    
+    const container = document.getElementById('latestNumbers');
+    container.innerHTML = ''; 
+
+    // 당첨 번호 6개 생성
+    for (let i = 1; i <= 6; i++) {
+        const num = data[`drwtNo${i}`];
+        const ball = createBallElement(num); // 공통 함수 호출 (숫자만 전달)
+        container.appendChild(ball);
+    }
+    
+    // 보너스 번호 생성 (+)
+    const bonusWrapper = document.createElement('div');
+    bonusWrapper.className = 'bonus-wrapper'; // CSS에서 정렬을 위해 추가 가능
+    bonusWrapper.innerHTML = '<span style="margin: 0 10px; font-weight: bold;">+</span>';
+    
+    const bonusBall = createBallElement(data.bnusNo); 
+    bonusWrapper.appendChild(bonusBall);
+    container.appendChild(bonusWrapper);
+}
+
+
+
+    
