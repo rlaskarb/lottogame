@@ -514,7 +514,7 @@ function displayLatestDraw(data) {
     // 보너스 번호 생성 (+)
     const bonusWrapper = document.createElement('div');
     bonusWrapper.className = 'bonus-wrapper'; // CSS에서 정렬을 위해 추가 가능
-    bonusWrapper.innerHTML = '<span style="margin: 0 10px; font-weight: bold;">+</span>';
+    bonusWrapper.innerHTML = '<span style="margin: 0 7px;">+</span>';
     
     const bonusBall = createBallElement(data.bnusNo); 
     bonusWrapper.appendChild(bonusBall);

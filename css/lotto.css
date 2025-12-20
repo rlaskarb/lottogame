@@ -274,6 +274,14 @@ body {
   justify-content: center;
 }
 
+.number-api {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
 .number-tag {
   background: linear-gradient(45deg, #667eea, #764ba2);
   color: white;
@@ -365,17 +373,11 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* --- 빈도 분석 심플 그리드 스타일 --- */
-
-/* 차트 컨테이너: 바둑판 배열 (반응형) */
 #frequencyChart.simple-grid {
   display: grid;
-  /* 화면 크기에 맞춰서 칸 수가 자동으로 조절됨 (최소 60px 너비) */
   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
   gap: 10px;
   padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
 }
 
 /* 개별 아이템 (네모 박스) */
@@ -466,19 +468,23 @@ body {
     padding: 15px;
     text-align: center;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      font-size: 32px;
+    }
   }
 
   .number-display {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
     margin: 30px 0;
     flex-wrap: wrap;
   }
 
   .lotto-ball {
-    width: 37px;
-    height: 37px;
+    width: 43px;
+    height: 43px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -566,5 +572,42 @@ body {
     p {
       margin-bottom: 15px;
     }
+  }
+
+  #frequencyChart.simple-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 1px;
+    padding: 1px;
+    border-radius: 1px;
+  }
+
+  .number-api {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    justify-content: center;
+  }
+
+  .stats-box {
+    width: 100%;
+    background: linear-gradient(45deg, #48cae4, #023e8a);
+    border-radius: 15px;
+    padding: 3px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .number-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
   }
 }
