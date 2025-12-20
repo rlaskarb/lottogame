@@ -3,7 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1등 당첨 제조기</title>
+    <meta name="google-site-verification" content="google40f7017eb8197edc" />
+    <meta
+      name="description"
+      content="과거 로또 당첨 데이터를 분석하여 핫/콜드/오버듀 전략별로 스마트한 번호를 생성해 드립니다."
+    />
+    <meta
+      name="keywords"
+      content="로또번호생성기,로또통계,로또분석,스마트로또,로또,로또추첨기,로또 추첨,로토,로또번호생성,로또번호,로또렌덤,번호생성"
+    />
+    <title>로또 1등 당첨 제조기</title>
+    <link rel="canonical" href="https://rlaskarb20.mycafe24.com/lotto/" />
     <link rel="icon" type="image/png" href="./data/loto.png" />
     <link rel="apple-touch-icon" href="./data/loto.png" />
     <link rel="manifest" href="./data/mainImg.json" />
@@ -96,20 +106,29 @@
           <div id="advancedAnalysis">
             <div class="analysis-grid">
               <div class="analysis-item">
-                <h3>🔥 최근 많이 나온 번호</h3>
+                <h3>🔥그동안 많이 나온 번호</h3>
                 <div id="hotNumbers" class="number-list"></div>
               </div>
               <div class="analysis-item">
-                <h3>❄️ 최근 적게 나온 번호</h3>
+                <h3>❄️그동안 적게 나온 번호</h3>
                 <div id="coldNumbers" class="number-list"></div>
               </div>
               <div class="analysis-item">
-                <h3>⏰오랫동안 안 나온 번호</h3>
+                <h3>⏰ 최근 10회 동안 안 나온 번호</h3>
                 <div id="overdueNumbers" class="number-list"></div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div id="strategyModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2 id="modalTitle">🎯 전략 적용 완료</h2>
+        <p id="modalMessage"></p>
+        <!-- <div id="modalNumbers" class="number-list"></div> -->
+        <button class="btn1" onclick="closeModal()">확인</button>
       </div>
     </div>
 

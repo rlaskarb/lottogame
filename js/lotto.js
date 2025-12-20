@@ -320,6 +320,7 @@ function generateStrategyNumbers(strategyType) {
     
     const numbers = [];
     let strategyName = "";
+    let message = ""; 
 
     // 2. 선택된 전략에 따라 번호 조합
     switch (strategyType) {
@@ -328,20 +329,23 @@ function generateStrategyNumbers(strategyType) {
             numbers.push(...selectFromPool(advancedStats.hotNumbers, 2));
             numbers.push(...selectFromPool(getAllNumbers(), 4)); 
             strategyName = "🔥 핫(2) + 랜덤(4) 조합";
+            message = "자주 나왔던 번호 2개에 행운의 랜덤 번호 4개를 섞어 보았습니다! 🍀";
             break;
 
         case 'cold':
             
             numbers.push(...selectFromPool(advancedStats.coldNumbers, 2));
-            numbers.push(...selectFromPool(advancedStats.hotNumbers, 4)); 
-            strategyName = "❄️ 콜드(2) + 핫(4) 조합";
+              numbers.push(...selectFromPool(getAllNumbers(), 4)); 
+            strategyName = "❄️ 콜드(2) + 랜덤(4) 조합";
+            message = "적게 나왔던 번호 2개에 행운의 랜덤 번호 4개를 섞어 보았습니다! 🍀";
             break;
 
         case 'overdue':
             // ⏰ 최근 10회 미출현 번호  
             numbers.push(...selectFromPool(advancedStats.overdueNumbers, 2));
-            numbers.push(...selectFromPool(advancedStats.hotNumbers, 4)); 
-            strategyName = "⏰ 미출현(2) + 핫(4) 조합";
+             numbers.push(...selectFromPool(getAllNumbers(), 4)); 
+            strategyName = "⏰ 미출현(2) + 랜덤(4) 조합";
+            message = "최근 안 나왔던 번호 2개에 행운의 랜덤 번호 4개를 섞어 보았습니다! 🍀";
             break;
     }
 
@@ -354,14 +358,42 @@ function generateStrategyNumbers(strategyType) {
         }
     }
 
-    // 4. 번호 정렬 및 화면 표시
+    // 4. 번호 정렬
     const finalNumbers = uniqueNumbers.slice(0, 6).sort((a, b) => a - b);
-    displayNumbers(finalNumbers);
+
+    // 5. [업그레이드] 화면 표시 및 커스텀 모달 호출
+    displayNumbers(finalNumbers); // 메인 화면 공 애니메이션 실행
+    showResultModal(message); // 결과 모달창 띄우기
 
     // 로그 확인용
     console.log(`생성 전략: ${strategyName}`);
     console.log(`선택된 번호: ${finalNumbers}`);
 }
+
+// 결과 모달창 표시 함수
+function showResultModal(message) {
+    const modal = document.getElementById('strategyModal');
+    // document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMessage').textContent = message;
+    
+    // // 모달 안의 번호 리스트 영역 초기화 후 공 생성
+    // const numContainer = document.getElementById('modalNumbers');
+    // numContainer.innerHTML = '';
+    
+    // numbers.forEach(num => {
+    //     // 기존에 만든 createBallElement(num) 함수가 있다면 활용하세요!
+    //     const ball = createBallElement(num); 
+    //     numContainer.appendChild(ball);
+    // });
+
+    modal.style.display = 'flex'; // 모달 보이기
+}
+
+// 모달 닫기 함수
+function closeModal() {
+    document.getElementById('strategyModal').style.display = 'none';
+}
+
     
 
 // 풀에서 번호 선택
