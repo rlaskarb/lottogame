@@ -83,6 +83,26 @@
         </div>
       </div>
 
+      <h2>🎯 번호 통계 데이터</h2>
+      <div class="chart-container">
+        <div id="advancedAnalysis">
+          <div class="analysis-grid">
+            <div class="analysis-item">
+              <h3>🔥그동안 많이 나온 번호</h3>
+              <div id="hotNumbers" class="number-list"></div>
+            </div>
+            <div class="analysis-item">
+              <h3>❄️그동안 적게 나온 번호</h3>
+              <div id="coldNumbers" class="number-list"></div>
+            </div>
+            <div class="analysis-item">
+              <h3>⏰ 최근 10회 동안 안 나온 번호</h3>
+              <div id="overdueNumbers" class="number-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="analysis-section">
         <h2>📊 번호별 출현 빈도 분석</h2>
 
@@ -100,26 +120,6 @@
             <p>🎯 홀짝 비율: <span id="oddEvenRatio">분석 중...</span></p>
           </div>
         </div> -->
-
-        <h2>🎯 고급 분석</h2>
-        <div class="chart-container">
-          <div id="advancedAnalysis">
-            <div class="analysis-grid">
-              <div class="analysis-item">
-                <h3>🔥그동안 많이 나온 번호</h3>
-                <div id="hotNumbers" class="number-list"></div>
-              </div>
-              <div class="analysis-item">
-                <h3>❄️그동안 적게 나온 번호</h3>
-                <div id="coldNumbers" class="number-list"></div>
-              </div>
-              <div class="analysis-item">
-                <h3>⏰ 최근 10회 동안 안 나온 번호</h3>
-                <div id="overdueNumbers" class="number-list"></div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -132,6 +132,10 @@
       </div>
     </div>
 
-    <script src="js/lotto.js"></script>
+    <!-- <script src="js/lotto.js"></script> -->
+    <script src="js/data.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/logic.js"></script>
+    <script src="js/api.js"></script>
   </body>
 </html>

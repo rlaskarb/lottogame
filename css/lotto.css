@@ -53,7 +53,8 @@ body {
 
 .generator-box {
   width: 100%;
-  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  background: linear-gradient(45deg, #1a237e, #0d47a1);
+  border: 2px solid #ffd700;
   border-radius: 15px;
   padding: 25px;
   text-align: center;
@@ -61,16 +62,17 @@ body {
 
   h2 {
     font-size: 40px;
+    color: #feca57;
   }
 }
 
 .stats-box {
   width: 100%;
-  background: linear-gradient(45deg, #48cae4, #023e8a);
+  background: linear-gradient(45deg, #1a237e, #283593);
   border-radius: 15px;
-  padding: 10px;
+  padding: 20px;
   color: white;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(26, 35, 126, 0.2);
 }
 
 .number-display {
@@ -142,8 +144,9 @@ body {
 }
 
 .btn {
-  background: linear-gradient(45deg, #667eea, #764ba2);
-  color: white;
+  background: linear-gradient(45deg, #ffd700, #ffa500);
+
+  color: #1a237e;
   border: none;
   padding: 10px 17px;
   border-radius: 15px;
@@ -157,6 +160,7 @@ body {
 
 .btn:hover,
 .btn1:hover {
+  background: linear-gradient(45deg, #ffa500, #ff8c00);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
@@ -205,7 +209,7 @@ body {
 
 .analysis-section {
   width: 100%;
-  background: linear-gradient(45deg, #a8edea, #fed6e3);
+  background: #f8f9fa;
   border-radius: 15px;
   padding: 25px;
   margin-top: 30px;
@@ -213,11 +217,12 @@ body {
 
 .chart-container {
   width: 100%;
-  background: white;
+  background: #fff;
+  border: 1px solid #e0e0e0;
   border-radius: 10px;
-  padding: 20px;
+  padding: 20px 20px 35px;
   margin: 20px 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .frequency-bar {
@@ -286,12 +291,18 @@ body {
 }
 
 .number-tag {
-  background: linear-gradient(45deg, #667eea, #764ba2);
   color: white;
-  padding: 9px 11px;
-  border-radius: 20px;
-  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .sum-chart {
@@ -483,7 +494,7 @@ body {
 
 @media (max-width: 470px) {
   .container {
-    width: 95%;
+    width: 100%;
     margin: 30px auto;
   }
 
@@ -507,7 +518,6 @@ body {
   }
 
   .generator-box {
-    background: linear-gradient(45deg, #ff6b6b, #feca57);
     border-radius: 15px;
     padding: 15px;
     text-align: center;
@@ -547,9 +557,6 @@ body {
   }
 
   .btn {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    border: none;
     padding: 10px 15px;
     border-radius: 15px;
     font-size: 15px;
@@ -599,7 +606,6 @@ body {
 
   .analysis-section {
     width: 100%;
-    background: linear-gradient(45deg, #a8edea, #fed6e3);
     border-radius: 15px;
     padding: 5px;
     margin-top: 20px;
@@ -607,7 +613,6 @@ body {
 
   .chart-container {
     width: 100%;
-    background: white;
     border-radius: 5px;
     padding: 10px 15px;
     margin: 15px 0;
@@ -636,11 +641,14 @@ body {
 
   .stats-box {
     width: 100%;
-    background: linear-gradient(45deg, #48cae4, #023e8a);
     border-radius: 15px;
     padding: 3px;
     color: white;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 10px;
+    }
   }
 
   .number-circle {
