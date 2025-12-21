@@ -3,8 +3,6 @@
 과거 당첨 데이터 통계 분석과 실시간 API 연동을 결합한 지능형 번호 추천 서비스입니다. 단순한 랜덤 추출을 넘어,<br>
 사용자에게 논리적 근거가 있는 4가지 생성 전략을 제공하며 실무적인 웹 서비스 운영 프로세스(SEO, PWA)를 직접 구현하였습니다.
 
-실시간 당첨 데이터 분석 및 통계 알고리즘 기반 스마트 번호 추천 시스템
-
 ## 🧩 [로또 1등 당첨되러 바로가기 ](https://rlaskarb20.mycafe24.com/lotto/) 🧩
 
 <img width="2300" height="1200" alt="image" src="https://github.com/user-attachments/assets/a0bc4230-c200-401c-89ee-79666434fbcf" />
