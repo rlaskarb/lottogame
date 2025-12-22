@@ -18,10 +18,9 @@ body {
 }
 
 .container {
-  width: 87%;
+  width: 80%;
   margin: 20px auto;
   border-radius: 20px;
-  padding: 10px;
 }
 
 .header {
@@ -53,13 +52,16 @@ body {
   width: 100%;
   background: linear-gradient(45deg, #1a237e, #0d47a1);
   border: 2px solid #ffd700;
+  padding: 0 10px;
   border-radius: 15px;
-  padding: 25px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-
   h2 {
-    font-size: 40px;
+    margin-bottom: 5px;
+    font-size: 50px;
     color: #feca57;
   }
 }
@@ -83,14 +85,14 @@ body {
 }
 
 .lotto-ball {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 28px;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -135,24 +137,26 @@ body {
 .number-btn {
   width: 100%;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0 10px;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .btn {
   background: linear-gradient(45deg, #ffd700, #ffa500);
-
   color: #1a237e;
   border: none;
-  padding: 10px 17px;
+  padding: 12px 15px;
   border-radius: 15px;
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.3s ease;
   margin: 20px 6px 5px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -209,7 +213,6 @@ body {
   width: 100%;
   background: #f8f9fa;
   border-radius: 15px;
-  padding: 25px;
   margin-top: 30px;
 }
 
@@ -235,21 +238,13 @@ body {
   font-weight: bold;
 }
 
-.bar {
-  height: 20px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  border-radius: 10px;
-  margin: 0 10px;
-  transition: width 0.5s ease;
-}
-
 .frequency-text {
   font-size: 0.9em;
   color: #666;
 }
 
 .analysis-grid {
-  width: 91%;
+  width: 95%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -258,17 +253,16 @@ body {
 }
 
 .analysis-item {
-  width: 90%;
+  width: 95%;
   background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 10px;
   text-align: center;
 }
 
 .analysis-item h3 {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   color: #333;
-  font-size: 1.1em;
+  font-size: 24px;
 }
 
 .number-list {
@@ -390,20 +384,18 @@ body {
 #frequencyChart.simple-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  gap: 5px;
+  gap: 8px;
   padding: 10px;
 }
 
-/* 개별 아이템 (네모 박스) */
 .frequency-item {
   display: flex;
-  flex-direction: column; /* 위아래로 배치 */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 15px 0;
 }
 
-/* 번호 동그라미 디자인 */
 .number-circle {
   width: 50px;
   height: 50px;
@@ -412,7 +404,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: white; /* 글자색 흰색 */
+  color: white;
   font-size: 25px;
 }
 
@@ -423,7 +415,6 @@ body {
   align-items: center;
 }
 
-/* 횟수 텍스트 */
 .frequency-text {
   margin-top: 15px;
   font-size: 16px;
@@ -431,7 +422,6 @@ body {
   font-weight: 600;
 }
 
-/* --- 로또 공 색상 (필요시 추가) --- */
 .ball-10 {
   background-color: #fbc400;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -465,21 +455,24 @@ body {
 /* 모달창 */
 .modal-content {
   background: white;
-  padding: 20px 30px;
+  margin-top: 50px;
+  padding: 20px;
   border-radius: 15px;
   text-align: center;
-  width: 90%;
-  max-width: 350px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 #modalMessage {
-  margin: 15px 0 10px;
+  margin: 20px auto 10px;
   color: #666;
+  font-size: 20px;
   font-weight: bold;
+  line-height: 2rem;
 }
 
 .btn1 {
-  background: #999;
+  background: linear-gradient(45deg, #1a237e, #0d47a1);
   color: #fff;
   border: none;
   padding: 10px 17px;
@@ -520,10 +513,8 @@ body {
 
   .generator-box {
     border-radius: 15px;
-    padding: 15px;
-    text-align: center;
+    padding: 20px 0;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-
     h2 {
       font-size: 32px;
     }
@@ -532,39 +523,34 @@ body {
   .number-display {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     margin: 30px 0;
     flex-wrap: wrap;
   }
 
   .lotto-ball {
-    width: 43px;
-    height: 43px;
+    width: 47px;
+    height: 47px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .number-btn {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0 10px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .btn {
-    padding: 10px 15px;
-    border-radius: 15px;
-    font-size: 15px;
+    padding: 7px 9px;
+    border-radius: 10px;
+    font-size: 18px;
     font-weight: 800;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 5px;
+    margin: 5px 7px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 
@@ -583,11 +569,12 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 15px;
-    margin-top: 20px;
+    margin: 20px 0;
   }
 
   .stat-item {
-    width: 100%;
+    width: 85%;
+    margin: 0 auto;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 10px;
@@ -605,13 +592,6 @@ body {
     opacity: 0.8;
   }
 
-  .analysis-section {
-    width: 100%;
-    border-radius: 15px;
-    padding: 5px;
-    margin-top: 20px;
-  }
-
   .chart-container {
     width: 100%;
     border-radius: 5px;
@@ -622,6 +602,29 @@ body {
     p {
       margin-bottom: 15px;
     }
+  }
+
+  .analysis-section {
+    width: 100%;
+    border-radius: 15px;
+    padding: 5px;
+    margin-top: 20px;
+  }
+
+  .analysis-grid {
+    width: 100%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin: 20px 0;
+  }
+
+  .analysis-item h3 {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 22px;
+    font-weight: 800;
   }
 
   #frequencyChart.simple-grid {
@@ -662,5 +665,51 @@ body {
     font-weight: bold;
     color: white;
     font-size: 16px;
+  }
+
+  /* 모달 배경 */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 모달창 */
+  .modal-content {
+    background: white;
+    margin-top: 50px;
+    padding: 20px 20px 10px;
+    border-radius: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  #modalMessage {
+    margin: 15px auto 5px;
+    color: #666;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1.8rem;
+  }
+
+  .btn1 {
+    background: linear-gradient(45deg, #1a237e, #0d47a1);
+    color: #fff;
+    border: none;
+    padding: 7px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px 0;
   }
 }

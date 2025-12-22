@@ -47,7 +47,7 @@ function performAdvancedAnalysis() {
     .map((item) => parseInt(item[0]))
     .sort((a, b) => a - b); // ★ 최종 화면용 오름차순 정렬
 
-  // ⏰ 미출현(오버듀) 정렬
+  // ⏰ 미출현(오버듀) 최근 10회 안나온번호  역순정렬
   const recent10Draws = lottoHistory.slice(0, 10);
   const recentNumbers = new Set();
   recent10Draws.forEach((draw) =>
@@ -79,7 +79,7 @@ function generateStrategyNumbers(strategyType) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "🔥 핫(2) + 랜덤(4) 조합";
       message =
-        "자주 나왔던 번호 2개에 행운의 랜덤 번호 4개를 섞어 보았습니다! 🍀";
+        "<strong style='color: #D32F2F;'>1등 단골 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다!🍀";
       break;
 
     case "cold":
@@ -87,7 +87,7 @@ function generateStrategyNumbers(strategyType) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "❄️ 콜드(2) + 랜덤(4) 조합";
       message =
-        "적게 나왔던 번호 2개에 행운의 랜덤 번호 4개를 섞어 보았습니다! 🍀";
+        "<strong style='color: #1A237E;'>저평가된 알짜 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다!🍀";
       break;
 
     case "overdue":
@@ -95,7 +95,14 @@ function generateStrategyNumbers(strategyType) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "⏰ 미출현(2) + 랜덤(4) 조합";
       message =
-        "최근 안 나왔던 번호 2개에 행운의 랜덤 번호 4개를 섞어 보았습니다! 🍀";
+        "<strong style='color: #9C27B0;'>최근 숨어있던 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호<span style='color: #218C74;'> 4개</span>를 섞어 보았습니다! 🍀";
+      break;
+
+    case "random":
+      numbers.push(...selectFromPool(getAllNumbers(), 6));
+      strategyName = "🍀 100% 완전 랜덤 조합";
+      message =
+        "<strong style='color: #ffa500;'>황금빛 기운이 감지되었습니다.</strong> <br> <span style='color: #218C74;'>행운</span>의 랜덤번호<span style='color: #218C74;'> 6개</span>를 소환했습니다!!!";
       break;
   }
 

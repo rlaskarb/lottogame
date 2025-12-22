@@ -127,7 +127,7 @@ function displayLatestDraw(data) {
 // 8. 모달 및 알림 관련 함수
 function showResultModal(message) {
   const modal = document.getElementById("strategyModal");
-  document.getElementById("modalMessage").textContent = message;
+  document.getElementById("modalMessage").innerHTML = message;
   modal.style.display = "flex";
 }
 

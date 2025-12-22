@@ -35,7 +35,7 @@
 
       <div class="lotto-section">
         <div class="generator-box">
-          <h2>🎯 스마트 번호 생성</h2>
+          <h2>🎯 1등 당첨 번호 받기</h2>
 
           <div class="number-display" id="lottoNumbers">
             <div class="lotto-ball ball-1">?</div>
@@ -47,19 +47,19 @@
           </div>
           <div class="number-btn">
             <button class="btn" onclick="generateStrategyNumbers('hot')">
-              많이 나온 번호
+              🔥 많이 나온 번호
             </button>
 
             <button class="btn" onclick="generateStrategyNumbers('cold')">
-              적게 나온 번호
+              ❄️ 적게 나온 번호
             </button>
 
             <button class="btn" onclick="generateStrategyNumbers('overdue')">
-              안 나온 번호
+              ⏰ 안 나온 번호
             </button>
 
-            <button class="btn" onclick="generateRandomNumbers()">
-              랜덤 번호 생성
+            <button class="btn" onclick="generateStrategyNumbers('random')">
+              🍀 랜덤 번호
             </button>
           </div>
         </div>
@@ -120,7 +120,7 @@
 
     <div id="strategyModal" class="modal-overlay">
       <div class="modal-content">
-        <h2 id="modalTitle">🎯 전략 적용 완료</h2>
+        <h2 id="modalTitle">✨ 황금 조합 분석 완료!</h2>
         <p id="modalMessage"></p>
         <button class="btn1" onclick="closeModal()">확인</button>
       </div>
