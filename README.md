@@ -5,7 +5,8 @@
 
 ## 🧩 [로또 1등 당첨되러 바로가기 ](https://rlaskarb20.mycafe24.com/lotto/) 🧩
 
-<img width="2560" height="1501" alt="image" src="https://github.com/user-attachments/assets/e31d011b-0d61-45c5-8cbc-7d29189b00a1" />
+<img width="2560" height="1673" alt="image" src="https://github.com/user-attachments/assets/b68fe6ce-375f-45ea-a630-95b68a81af42" />
+
 
 
 ## 📌 프로젝트 소개
