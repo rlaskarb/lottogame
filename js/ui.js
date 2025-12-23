@@ -147,3 +147,45 @@ function showStrategyInfo(strategy) {
     );
   }, 1000);
 }
+
+/* ==========================================
+   🚫 [보안] 무한 새로고침 방지 (Anti-F5 Spam)
+   - 3초 안에 5번 이상 새로고침하면 경고창 띄움
+   ========================================== */
+(function () {
+  // 마지막 접속 시간과 횟수를 저장할 변수
+  const LIMIT_TIME = 3000; // 3초 (감시 시간)
+  const MAX_REFRESH = 5; // 5번 허용 (제한 횟수)
+
+  // 로컬 스토리지에서 기록 가져오기
+  let accessHistory = JSON.parse(
+    localStorage.getItem("access_history") || "[]"
+  );
+  const now = Date.now();
+
+  // 1. 3초가 지난 기록은 삭제 (청소)
+  accessHistory = accessHistory.filter((time) => now - time < LIMIT_TIME);
+
+  // 2. 현재 접속 시간 추가
+  accessHistory.push(now);
+
+  // 3. 기록 저장
+  localStorage.setItem("access_history", JSON.stringify(accessHistory));
+
+  // 4. 횟수 체크: 3초 안에 5번 이상 들어왔다면?
+  if (accessHistory.length > MAX_REFRESH) {
+    alert(
+      "⚠️ 접속 요청이 너무 빠릅니다.\n서버 보호를 위해 잠시 후 다시 시도해주세요."
+    );
+
+    // (선택) 아예 화면을 하얗게 만들어버려서 버튼 못 누르게 하기
+    document.body.innerHTML =
+      '<div style="display:flex;justify-content:center;align-items:center;height:100vh;flex-direction:column;"><h1>🚫 접속 제한</h1><p>새로고침이 너무 빠릅니다. 10초 뒤에 다시 접속해주세요.</p></div>';
+
+    // 10초 뒤에 자동으로 새로고침 (풀어주기)
+    setTimeout(() => {
+      localStorage.removeItem("access_history"); // 기록 초기화
+      location.reload();
+    }, 10000);
+  }
+})();

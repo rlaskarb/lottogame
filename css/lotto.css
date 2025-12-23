@@ -23,7 +23,7 @@ body {
 }
 
 .container {
-  width: 80%;
+  width: 78%;
   margin: 20px auto;
   border-radius: 20px;
 }
@@ -226,7 +226,7 @@ body {
   background: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
-  padding: 20px 20px 35px;
+  padding: 20px 15px 35px;
   margin: 20px 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -390,8 +390,8 @@ body {
 #frequencyChart.simple-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  gap: 8px;
-  padding: 10px;
+  gap: 5px;
+  padding: 7px;
 }
 
 .frequency-item {
@@ -461,7 +461,7 @@ body {
 /* 모달창 */
 .modal-content {
   background: white;
-  margin-top: 50px;
+  margin: 50px auto;
   padding: 20px;
   border-radius: 15px;
   text-align: center;
@@ -490,11 +490,74 @@ body {
   margin: 10px 0;
 }
 
+/* 후원 카카오페이 송금 */
+
+.pc-wing-banner {
+  display: block;
+  position: fixed;
+  top: 125px;
+  right: 5px;
+  width: 200px;
+  background: #fff;
+  padding: 20px 15px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  border: 2px solid #f0f0f0;
+  z-index: 100;
+}
+
+/* PC용 내용물 스타일 */
+.pc-wing-banner h3 {
+  text-align: center;
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: #333;
+}
+.wing-msg {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+.qr-box img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+.qr-box p {
+  font-size: 12px;
+  color: #999;
+  margin: 5px 0 10px 0;
+}
+.wing-bank {
+  font-size: 12px;
+  background: #f8f9fa;
+  padding: 8px;
+  line-height: 1.5em;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  color: #555;
+}
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #aaa;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* 모바일용 박스: PC에서는 숨김 (display: none) */
+.mobile-donation {
+  display: none;
+}
+
 /* ******************************************************* */
 
-@media (max-width: 470px) {
+@media (max-width: 768px) {
   .container {
-    width: 100%;
+    width: 95%;
     margin: 30px auto;
   }
 
@@ -511,10 +574,10 @@ body {
 
   .lotto-section {
     width: 100%;
+    margin: 30px auto;
     display: grid;
     grid-template-columns: 1fr;
     gap: 30px;
-    margin-bottom: 30px;
   }
 
   .generator-box {
@@ -573,13 +636,13 @@ body {
   .stats-grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 15px;
     margin: 20px 0;
   }
 
   .stat-item {
-    width: 85%;
+    width: 100%;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
@@ -607,6 +670,9 @@ body {
 
     p {
       margin-bottom: 15px;
+      color: #555;
+      line-height: 1.6rem;
+      font-size: 15px;
     }
   }
 
@@ -695,7 +761,7 @@ body {
     border-radius: 15px;
     text-align: center;
     width: 100%;
-    max-width: 300px;
+    max-width: 330px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   }
   #modalMessage {
@@ -717,5 +783,64 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 5px 0;
+  }
+
+  /* 후원 카카오페이 송금 */
+  /* PC 윙 배너 숨기기 */
+  .pc-wing-banner {
+    display: none;
+  }
+
+  /* 모바일용 박스 보이기 */
+  .mobile-donation {
+    display: block;
+    width: 95%;
+    margin: 30px auto;
+    padding: 30px 20px;
+    background: #ffffff;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+  }
+
+  /* 모바일 내용물 스타일 */
+  .mobile-donation h2 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #333;
+  }
+  .mobile-donation .message {
+    margin-bottom: 25px;
+    line-height: 1.6;
+    color: #666;
+    font-size: 15px;
+  }
+  .mobile-donation .highlight {
+    color: #ff9f43;
+    font-weight: bold;
+  }
+
+  .btn-kakao-mobile {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    background-color: #f7e600;
+    color: #3a1d1d;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(247, 230, 0, 0.3);
+  }
+
+  .bank-info {
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
   }
 }

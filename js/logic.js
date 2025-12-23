@@ -121,9 +121,6 @@ function generateStrategyNumbers(strategyType) {
   // 화면 표시 (ui.js에 있는 함수 호출)
   displayNumbers(finalNumbers);
   showResultModal(message);
-
-  console.log(`생성 전략: ${strategyName}`);
-  console.log(`선택된 번호: ${finalNumbers}`);
 }
 
 // 4. 일반 랜덤 번호 생성
