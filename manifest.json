@@ -12,9 +12,9 @@
       "type": "image/png"
     },
     {
-      "src": "./lotto-data/lottos512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "./lotto-data/lottos670.avif",
+      "sizes": "670x394",
+      "type": "image/avif"
     }
   ]
 }
