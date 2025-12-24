@@ -3,7 +3,7 @@
 과거 당첨 데이터 통계 분석과 실시간 API 연동을 결합한 지능형 번호 추천 서비스입니다. 단순한 랜덤 추출을 넘어,<br>
 사용자에게 논리적 근거가 있는 4가지 생성 전략을 제공하며 실무적인 웹 서비스 운영 프로세스(SEO, PWA)를 직접 구현하였습니다.
 
-## 🧩 [로또 1등 당첨되러 바로가기 ](https://rlaskarb20.mycafe24.com/lotto/) 🧩
+## 🧩 [로또 1등 당첨되러 바로가기 ](https://barolotto.com) 🧩
 
 <img width="2560" height="1726" alt="image" src="https://github.com/user-attachments/assets/8be98626-4b7a-4fdb-919f-77827f7b90f6" />
 
