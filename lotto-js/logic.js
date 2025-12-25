@@ -92,7 +92,7 @@ function generateStrategyNumbers(strategyType) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "🔥 핫(2) + 랜덤(4) 조합";
       message =
-        "<strong style='color: #D32F2F;'>1등 단골 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다!🍀";
+        "<strong style='color: #D32F2F;'>1등 단골 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다🍀";
       break;
 
     case "cold":
@@ -100,7 +100,7 @@ function generateStrategyNumbers(strategyType) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "❄️ 콜드(2) + 랜덤(4) 조합";
       message =
-        "<strong style='color: #1A237E;'>저평가된 알짜 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다!🍀";
+        "<strong style='color: #1A237E;'>저평가된 알짜 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다🍀";
       break;
 
     case "overdue":
@@ -108,7 +108,7 @@ function generateStrategyNumbers(strategyType) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "⏰ 미출현(2) + 랜덤(4) 조합";
       message =
-        "<strong style='color: #9C27B0;'>최근 숨어있던 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호<span style='color: #218C74;'> 4개</span>를 섞어 보았습니다! 🍀";
+        "<strong style='color: #9C27B0;'>최근 숨어있던 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호<span style='color: #218C74;'> 4개</span>를 섞어 보았습니다🍀";
       break;
 
     case "random":
