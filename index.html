@@ -14,7 +14,7 @@
     />
     <meta
       name="keywords"
-      content="바로쓰는로또,바로 쓰는 로또,바로쓰는로또생성기,바로 쓰는 로또 생성기,로또,로또번호,로또 번호,로또당첨제조기,로또 당첨 제조기,로또생성기,로또 생성기,로또 번호 생성기,로또번호생성기,로또당첨번호,로또분석,무료로또,1등예상번호,Lotto,lotto,로또명당,로또 당첨,번호추첨,번호 추첨,로또번호추첨"
+      content="바로로또,바로 로또,바로쓰는로또,바로 쓰는 로또,바로쓰는로또생성기,바로 쓰는 로또 생성기,로또,로또번호,로또 번호,로또당첨제조기,로또 당첨 제조기,로또생성기,로또 생성기,로또 번호 생성기,로또번호생성기,로또당첨번호,로또분석,무료로또,1등예상번호,Lotto,lotto,로또명당,로또 당첨,번호추첨,번호 추첨,로또번호추첨"
     />
 
     <meta property="og:type" content="website" />
@@ -28,7 +28,7 @@
       content="https://barolotto.com/lotto-data/lottos670.avif"
     />
 
-    <title>바로쓰는 로또 생성기</title>
+    <title>바로쓰는 로또</title>
     <link rel="canonical" href="https://barolotto.com" />
     <link rel="icon" type="image/png" href="./lotto-data/lottos.png" />
 
@@ -52,12 +52,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="lotto-css/lotto.css?v=1.4" />
+    <link rel="stylesheet" href="./lotto-css/rare.css?v=1.4" />
   </head>
 
   <body>
     <main class="container">
       <div class="header">
-        <h1>🎰 로또 당첨 제조기</h1>
+        <h1>🎰 바로쓰는 로또 생성기</h1>
       </div>
 
       <div class="lotto-section">
@@ -73,19 +74,16 @@
             <div class="lotto-ball ball-6">?</div>
           </div>
           <div class="number-btn">
-            <button class="btn" onclick="generateStrategyNumbers('hot')">
+            <button class="btn strategy-btn" data-type="hot">
               🔥 많이 나온 번호
             </button>
-
-            <button class="btn" onclick="generateStrategyNumbers('cold')">
+            <button class="btn strategy-btn" data-type="cold">
               ❄️ 적게 나온 번호
             </button>
-
-            <button class="btn" onclick="generateStrategyNumbers('overdue')">
+            <button class="btn strategy-btn" data-type="overdue">
               ⏰ 안 나온 번호
             </button>
-
-            <button class="btn" onclick="generateStrategyNumbers('random')">
+            <button class="btn strategy-btn" data-type="random">
               🍀 랜덤 번호
             </button>
           </div>
@@ -200,6 +198,7 @@
       </button>
     </div>
 
+    <!-- 버튼클릭시 일반 모달창 -->
     <div id="strategyModal" class="modal-overlay">
       <div class="modal-content">
         <dl>
@@ -207,6 +206,19 @@
           <dd id="modalMessage"></dd>
         </dl>
         <button class="btn1" onclick="closeModal()">확인</button>
+      </div>
+    </div>
+
+    <!-- 20%확률의 모달창 -->
+    <div id="rare-overlay" class="hidden">
+      <div class="video-container">
+        <video id="rare-video" muted playsinline></video>
+        <div id="rare-text-box">
+          <dl>
+            <dt id="rare-title"></dt>
+            <dd id="rare-desc"></dd>
+          </dl>
+        </div>
       </div>
     </div>
 

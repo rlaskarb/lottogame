@@ -12,12 +12,33 @@
   -webkit-text-size-adjust: none;
 }
 
+#rare-text-box dl,
+#rare-text-box dt,
+#rare-text-box dd {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html,
+button,
+input,
+textarea,
+.rare-text-box {
+  font-family: "Roboto", "Noto Sans KR", sans-serif !important;
+}
+
+#rare-text-box,
+#rare-title,
+#rare-desc {
+  font-family: "Roboto", "Noto Sans KR", sans-serif !important;
+}
+
 html {
   font-size: 18px;
 }
 
 body {
-  font-family: "Roboto", "Noto Sans KR", sans-serif;
   background-color: #f4f7f6;
   color: #333;
 }

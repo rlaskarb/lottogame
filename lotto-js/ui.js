@@ -55,7 +55,7 @@ function generateFrequencyChart() {
   }
 }
 
-// 5. 고급 분석 결과 표시 (핫/콜드/오버듀) - ★ 수정된 최종 버전 적용됨
+// 5. 고급 분석 결과 표시 (핫/콜드/오버듀)
 function updateAdvancedAnalysis() {
   const containers = ["hotNumbers", "coldNumbers", "overdueNumbers"];
 
@@ -132,8 +132,30 @@ function showResultModal(message) {
 }
 
 function closeModal() {
-  document.getElementById("strategyModal").style.display = "none";
+  const modal = document.getElementById("strategyModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
 }
+
+// 2. ✨ 키보드 엔터(Enter) 감지 코드 추가 ✨
+document.addEventListener("keydown", function (event) {
+  const modal = document.getElementById("strategyModal");
+
+  // 모달이 현재 화면에 보여지고 있을 때만 작동! (중요)
+  // (style.display가 'none'이 아니고, 모달이 존재할 때)
+  if (modal && modal.style.display !== "none") {
+    // 눌린 키가 'Enter' 라면?
+    if (event.key === "Enter") {
+      closeModal(); // 닫기 함수 실행
+    }
+
+    // (보너스 팁) 보통 모달은 'ESC' 키로도 많이 닫습니다. 이것도 넣어두면 편해요!
+    if (event.key === "Escape") {
+      closeModal();
+    }
+  }
+});
 
 function showStrategyInfo(strategy) {
   const strategyNames = {
