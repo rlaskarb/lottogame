@@ -174,8 +174,6 @@ function showStrategyInfo(strategy) {
   }, 1000);
 }
 
-// lotto-js/ui.js 맨 아래에 추가
-
 // [기능] 최근 10회차 리스트 그리기
 function renderHistoryList() {
   const listContainer = document.getElementById("recentHistoryList");

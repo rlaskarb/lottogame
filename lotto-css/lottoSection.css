@@ -1,0 +1,409 @@
+/* 1등 기원 번호 생성 */
+
+.lotto-section {
+  width: 99%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.generator-box {
+  width: 100%;
+  min-height: 420px;
+  margin: 0 auto;
+  background: linear-gradient(45deg, #1a237e, #0d47a1);
+  border: 2px solid #ffd700;
+  padding: 0 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  h2 {
+    margin: 5px 0;
+    font-size: 50px;
+    color: #feca57;
+  }
+}
+
+.number-display {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 35px 0;
+  flex-wrap: wrap;
+}
+
+.lotto-ball {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 28px;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: bounce 0.6s ease-in-out;
+}
+
+/*  */
+.ball-1 {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+}
+.ball-2 {
+  background: linear-gradient(45deg, #feca57, #ff9ff3);
+}
+.ball-3 {
+  background: linear-gradient(45deg, #48cae4, #0077b6);
+}
+.ball-4 {
+  background: linear-gradient(45deg, #06ffa5, #00d2d3);
+}
+.ball-5 {
+  background: linear-gradient(45deg, #ff9ff3, #f368e0);
+}
+.ball-6 {
+  background: linear-gradient(45deg, #ff6348, #ff4757);
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.number-btn {
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.btn {
+  background: linear-gradient(45deg, #ffd700, #ffa500);
+  color: #1a237e;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 20px 6px 5px;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover,
+.btn1:hover {
+  background: linear-gradient(45deg, #ffa500, #ff8c00);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active,
+.btn1:active {
+  transform: translateY(0);
+}
+
+/*  실시간 당첨 정보 */
+.stats-box {
+  width: 100%;
+  margin: 0 auto;
+  background: linear-gradient(45deg, #1a237e, #283593);
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 10px 25px rgba(26, 35, 126, 0.2);
+}
+
+.latest-draw-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.number-api {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+}
+
+.bonus-wrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 누적 통계번호 */
+.stats-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-item {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+/* 나의 생성기록 */
+
+.stats-box2 {
+  display: none;
+
+  .stat-box2-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+}
+
+.my-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 420px;
+  overflow-y: auto;
+}
+
+.btn-close-history {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn-close-history:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.strategy-badge {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  margin-right: 5px;
+  min-width: 50px;
+  text-align: center;
+}
+
+@media (max-width: 1900px) {
+  /* 1등 기원 번호 생성 */
+  .lotto-section {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+  }
+
+  .generator-box,
+  .stats-box {
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  .generator-box {
+    width: 90%;
+
+    h2 {
+      margin: 25px 0 10px;
+      font-size: 50px;
+      color: #feca57;
+    }
+  }
+
+  .lotto-ball {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+  }
+
+  .number-btn {
+    width: 100%;
+    margin: 20px auto;
+    display: grid;
+    gap: 7px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* 실시간 당첨번호 */
+  .latest-draw-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 28px;
+    margin: 20px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 1등기원 생성번호  */
+  .lotto-section {
+    width: 100%;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .generator-box {
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 20px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    h2 {
+      font-size: 32px;
+    }
+  }
+
+  .number-display {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+
+  .lotto-ball {
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 21px;
+  }
+
+  .number-btn {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .btn {
+    padding: 7px 9px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 12px 11px;
+    margin: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 실시간 당첨정보 */
+
+  .stats-box {
+    width: 100%;
+    border-radius: 15px;
+    padding: 3px;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 10px;
+    }
+  }
+
+  .latest-draw-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 23px;
+    margin: 15px 0;
+  }
+
+  .number-api {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    justify-content: center;
+  }
+
+  /* 누적 통계 정보 */
+  .stats-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+  }
+
+  .stat-item {
+    width: 90%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .stat-label {
+    font-size: 18px;
+    opacity: 0.8;
+  }
+}

@@ -253,6 +253,8 @@ function generateStrategyNumbers(strategyType, isRare = false) {
   displayNumbers(finalNumbers);
   // isRare 가 true 여도 모달 띄우기
   showResultModal(message, title);
+  //번호 저장하고 화면 전환하기
+  saveToMyHistory(finalNumbers, strategyType, isRare);
 }
 
 // 4. 일반 랜덤 번호 생성
@@ -294,3 +296,109 @@ strategyButtons.forEach((button) => {
     handleButtonClick(type);
   });
 });
+
+// 나만의 기록 저장 및 관리 시스템
+function saveToMyHistory(numbers, type, isRare) {
+  // 로컬 스토리지에서 기존 기록 가져오기
+  let myHistory = JSON.parse(localStorage.getItem("my_lotto_history") || "[]");
+
+  // 전략 이름 한글화 및 색상 매칭
+  const strategyInfo = {
+    hot: { name: "🔥 HOT", color: "#FF5252" },
+    cold: { name: "❄️ COLD", color: "#8C9EFF" },
+    overdue: { name: "⏰ 안나온", color: "#E040FB" },
+    random: { name: "🍀 랜덤", color: "#FFD740" },
+  };
+
+  let info = strategyInfo[type] || { name: "기타", color: "#999" };
+
+  // 3. ✨ [핵심] 레어(20%) 당첨 시, 타입별로 다른 '전설의 이름' 부여!
+  if (isRare) {
+    // 레어 전용 이름 맵핑
+    const rareTitles = {
+      hot: "🔥 전설의 불꽃", // Hot 레어
+      cold: "💎 심해의 보물", // Cold 레어
+      overdue: "🌑 심연의 지배자", // Overdue 레어
+      random: "👑 행운의 여신", // Random 레어
+    };
+    // 덮어쓰기
+    info = {
+      name: rareTitles[type], // 위에서 정한 전설의 이름
+      color: "#222", // 뱃지 배경은 '레어' 느낌 나게 블랙(Dark) 유지
+    };
+  }
+
+  // 새 데이터 만들기
+  const newEntry = {
+    id: Date.now(), // 고유 ID
+    numbers: numbers,
+    typeName: info.name,
+    typeColor: info.color,
+    isRare: isRare,
+    date: new Date().toLocaleTimeString(), // 생성 시간
+  };
+
+  myHistory.unshift(newEntry);
+  if (myHistory.length > 10) {
+    myHistory = myHistory.slice(0, 10);
+  }
+  localStorage.setItem("my_lotto_history", JSON.stringify(myHistory));
+
+  // 6. 화면 갱신
+  renderMyHistory();
+  toggleStatsView("history");
+}
+
+// 2. 기록 화면 그리기 (HTML 생성)
+function renderMyHistory() {
+  const listContainer = document.getElementById("myNumberList");
+  const myHistory = JSON.parse(
+    localStorage.getItem("my_lotto_history") || "[]"
+  );
+
+  if (myHistory.length === 0) {
+    listContainer.innerHTML =
+      "<p style='text-align:center; color:white;'>아직 생성된 기록이 없습니다.</p>";
+    return;
+  }
+
+  listContainer.innerHTML = ""; // 초기화
+
+  myHistory.forEach((item) => {
+    // 기존 'history-row' 클래스 재사용 (디자인 통일)
+    const row = document.createElement("div");
+    row.className = "history-row";
+    row.style.background = "rgba(255,255,255,0.9)"; // 흰색 배경 살짝 투명하게
+
+    // 공 HTML 생성
+    let ballsHtml = "";
+    item.numbers.forEach((num) => {
+      const colorClass = getBallColorClass(num); // ui.js 함수 활용
+      ballsHtml += `<div class="number-circle ${colorClass} history-ball">${num}</div>`;
+    });
+
+    row.innerHTML = `
+            <div style="display:flex; align-items:center;">
+                <span class="strategy-badge" style="background:${item.typeColor}">${item.typeName}</span>
+            </div>
+            <div class="balls-wrapper">
+                ${ballsHtml}
+            </div>
+        `;
+    listContainer.appendChild(row);
+  });
+}
+
+// 3. 화면 전환 함수 (Stats <-> History)
+function toggleStatsView(mode) {
+  const defaultBox = document.getElementById("defaultStats");
+  const historyBox = document.getElementById("myHistorySection");
+
+  if (mode === "history") {
+    defaultBox.style.display = "none";
+    historyBox.style.display = "block"; // 혹은 flex
+  } else {
+    defaultBox.style.display = "block"; // 원래대로 복구
+    historyBox.style.display = "none";
+  }
+}
