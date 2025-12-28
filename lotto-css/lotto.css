@@ -238,11 +238,11 @@
 }
 
 .history-row {
-  width: 80%;
+  width: 95%;
   margin: 5px auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   border: 1px solid #eee;
   padding: 7px 10px;
   border-radius: 15px;
@@ -268,7 +268,7 @@
 .balls-wrapper {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 15px;
 }
 
 .plus-sign {
@@ -601,7 +601,7 @@
     margin: 5px auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     border: 1px solid #eee;
     padding: 7px 10px;
     border-radius: 15px;
@@ -627,7 +627,7 @@
   .balls-wrapper {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 10px;
   }
 
   .plus-sign {
