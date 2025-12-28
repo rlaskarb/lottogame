@@ -5,7 +5,8 @@
 
 ## 🧩 [로또 1등 당첨되러 바로가기 ](https://barolotto.com) 🧩
 
-<img width="2560" height="1726" alt="image" src="https://github.com/user-attachments/assets/8be98626-4b7a-4fdb-919f-77827f7b90f6" />
+<img width="2560" height="2565" alt="image" src="https://github.com/user-attachments/assets/f9803ce2-9621-401a-bb6c-b12ea52a7293" />
+
 
 
 
