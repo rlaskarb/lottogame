@@ -307,7 +307,7 @@ function saveToMyHistory(numbers, type, isRare) {
     hot: { name: "🔥 HOT", color: "#FF5252" },
     cold: { name: "❄️ COLD", color: "#8C9EFF" },
     overdue: { name: "⏰ 안나온", color: "#E040FB" },
-    random: { name: "🍀 랜덤", color: "#FFD740" },
+    random: { name: "🍀 랜덤", color: "#fecb59" },
   };
 
   let info = strategyInfo[type] || { name: "기타", color: "#999" };
@@ -365,10 +365,16 @@ function renderMyHistory() {
   listContainer.innerHTML = ""; // 초기화
 
   myHistory.forEach((item) => {
-    // 기존 'history-row' 클래스 재사용 (디자인 통일)
     const row = document.createElement("div");
     row.className = "history-row";
-    row.style.background = "rgba(255,255,255,0.9)"; // 흰색 배경 살짝 투명하게
+
+    // 레어 아이템 배경 처리
+    if (item.isRare) {
+      row.style.background = "linear-gradient(to right, #f3e5f5, #fff)";
+      row.style.border = "1px solid #E040FB";
+    } else {
+      row.style.background = "rgba(255,255,255,0.9)";
+    }
 
     // 공 HTML 생성
     let ballsHtml = "";
@@ -379,6 +385,7 @@ function renderMyHistory() {
 
     row.innerHTML = `
             <div style="display:flex; align-items:center;">
+                <input type="checkbox" class="history-checkbox" value="${item.id}">
                 <span class="strategy-badge" style="background:${item.typeColor}">${item.typeName}</span>
             </div>
             <div class="balls-wrapper">
@@ -401,4 +408,33 @@ function toggleStatsView(mode) {
     defaultBox.style.display = "block"; // 원래대로 복구
     historyBox.style.display = "none";
   }
+}
+
+// 선택 삭제 함수
+function deleteSelectedItems() {
+  // 1. 체크된 박스들을 모두 찾습니다.
+  const checkboxes = document.querySelectorAll(".history-checkbox:checked");
+
+  if (checkboxes.length === 0) {
+    alert("삭제할 항목을 선택해주세요.");
+    return;
+  }
+
+  if (!confirm(`선택한 ${checkboxes.length}개 기록을 삭제하시겠습니까?`)) {
+    return; // 취소하면 중단
+  }
+
+  // 2. 삭제할 id 목록 만들기
+  // (체크된 박스의 value 값을 가져와서 숫자로 변환)
+  const idsToDelete = Array.from(checkboxes).map((cb) => Number(cb.value));
+
+  // 3. 기존 기록 가져오기
+  let myHistory = JSON.parse(localStorage.getItem("my_lotto_history") || "[]");
+
+  // 4. [삭제 로직] 삭제 명단에 없는 애들만 남기기 (filter)
+  myHistory = myHistory.filter((item) => !idsToDelete.includes(item.id));
+
+  // 5. 저장 및 화면 갱신
+  localStorage.setItem("my_lotto_history", JSON.stringify(myHistory));
+  renderMyHistory(); // 리스트 다시 그리기
 }
