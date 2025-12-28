@@ -253,6 +253,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: all 0.2s;
 }
+
 .btn-delete-selected:hover {
   background: #ff1744;
   transform: scale(1.05);
@@ -431,5 +432,53 @@
   .stat-label {
     font-size: 18px;
     opacity: 0.8;
+  }
+
+  /* 나의 생성 기록 */
+
+  .stats-box2 {
+    display: none;
+
+    .stat-box2-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .strategy-badge {
+    font-size: 12px;
+    padding: 4px 5px;
+    margin-right: 1px;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  .history-checkbox {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+  }
+
+  .btn-delete-selected {
+    padding: 7px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+  }
+
+  .btn-close-history {
+    padding: 7px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
   }
 }
