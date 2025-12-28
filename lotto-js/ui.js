@@ -77,7 +77,7 @@ function updateAdvancedAnalysis() {
       const tag = document.createElement("span");
       const colorClass = getBallColorClass(num); // 공통 함수 활용
 
-      tag.className = `number-tag ${colorClass}`;
+      tag.className = `number-circle ${colorClass}`;
       tag.textContent = num;
       container.appendChild(tag);
     });
@@ -125,9 +125,13 @@ function displayLatestDraw(data) {
 }
 
 // 8. 모달 및 알림 관련 함수
-function showResultModal(message) {
+function showResultModal(message, title = "✨ 황금 조합 분석 완료!") {
   const modal = document.getElementById("strategyModal");
+
+  //제목과 내용 교체
+  document.getElementById("modalTitle").innerHTML = title;
   document.getElementById("modalMessage").innerHTML = message;
+
   modal.style.display = "flex";
 }
 
@@ -168,6 +172,71 @@ function showStrategyInfo(strategy) {
       `사용된 전략: ${strategyNames[strategy]}\n\n이 전략은 과거 데이터 분석을 바탕으로 선택되었습니다.`
     );
   }, 1000);
+}
+
+// lotto-js/ui.js 맨 아래에 추가
+
+// [기능] 최근 10회차 리스트 그리기
+function renderHistoryList() {
+  const listContainer = document.getElementById("recentHistoryList");
+  if (!listContainer) return; // 에러 방지
+
+  listContainer.innerHTML = ""; // 초기화
+
+  // 1. 최신 데이터 10개만 가져오기 (이미 최신순 정렬되어 있다고 가정)
+  // 데이터 구조: [1, 2, 3, 4, 5, 6, 7] (7번이 보너스)
+  const recent10 = lottoHistory.slice(0, 10);
+
+  // 2. 현재 최신 회차 번호 계산 (1204회부터 시작한다고 가정)
+  // (주의: 정확한 회차 계산이 필요하면 api.js의 calculateCurrentRound 활용 필요)
+  // 여기서는 단순히 총 개수에서 하나씩 빼면서 표시하는 방식 예시입니다.
+  // 만약 lotto.json에 회차 정보가 없다면, 1204회부터 역산하거나 별도 로직 필요.
+  // 일단 김남규님의 최신 데이터가 1204회(가정)라면:
+  let currentRound = 1204; // ▲▲ 이 부분은 나중에 자동으로 되게 고칠 수 있습니다.
+
+  recent10.forEach((row, index) => {
+    // 실제 회차: (전체개수 - 인덱스) 방식이 더 정확할 수 있습니다.
+    // 여기선 일단 예시로 보여줍니다.
+    const roundNum = lottoHistory.length - index;
+
+    // 3. 한 줄(Row) 만들기
+    const rowDiv = document.createElement("div");
+    rowDiv.className = "history-row";
+
+    // 4. 왼쪽: 회차 뱃지
+    const badge = document.createElement("span");
+    badge.className = "round-badge";
+    badge.innerText = `${roundNum}회`; // 1204회, 1203회...
+
+    // 5. 오른쪽: 공 묶음
+    const ballsDiv = document.createElement("div");
+    ballsDiv.className = "balls-wrapper";
+
+    // 5-1. 당첨 번호 6개 그리기
+    for (let i = 0; i < 6; i++) {
+      const num = row[i];
+      // 기존 createBallElement 함수 대신, 직접 HTML 문자열로 넣는게 빠릅니다 (작은공 커스텀 위해)
+      // getBallColorClass는 ui.js에 있는 기존 함수 재사용!
+      const colorClass = getBallColorClass(num);
+
+      // number-circle 클래스도 넣고, history-ball로 크기 덮어쓰기
+      const ballHtml = `<div class="number-circle ${colorClass} history-ball">${num}</div>`;
+      ballsDiv.innerHTML += ballHtml;
+    }
+
+    // 5-2. 더하기 기호 (+)
+    ballsDiv.innerHTML += `<span class="plus-sign">+</span>`;
+
+    // 5-3. 보너스 번호 (7번째 숫자 = 인덱스 6)
+    const bonusNum = row[6];
+    const bonusColor = getBallColorClass(bonusNum);
+    ballsDiv.innerHTML += `<div class="number-circle ${bonusColor}">${bonusNum}</div>`;
+
+    // 6. 합치기
+    rowDiv.appendChild(badge);
+    rowDiv.appendChild(ballsDiv);
+    listContainer.appendChild(rowDiv);
+  });
 }
 
 /* ==========================================

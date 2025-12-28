@@ -29,6 +29,7 @@ window.onload = async function () {
       generateFrequencyChart(); // 차트 그리기 (ui.js)
       performAdvancedAnalysis(); // 고급 분석 (logic.js)
       updateAdvancedAnalysis(); // 고급 분석 UI (ui.js)
+      renderHistoryList();
 
       // 3. 최신 회차 API 호출 (이번 주 당첨 확인용)
       const currentRound = calculateCurrentRound();

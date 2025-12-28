@@ -1,0 +1,116 @@
+:root {
+  color-scheme: light;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  vertical-align: top;
+  -webkit-text-size-adjust: none;
+}
+
+#rare-text-box dl,
+#rare-text-box dt,
+#rare-text-box dd {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html,
+button,
+input,
+textarea,
+.rare-text-box {
+  font-family: "Roboto", "Noto Sans KR", sans-serif !important;
+}
+
+#rare-text-box,
+#rare-title,
+#rare-desc {
+  font-family: "Roboto", "Noto Sans KR", sans-serif !important;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.container {
+  width: 78%;
+  margin: 20px auto;
+  border-radius: 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h1 {
+  color: #333;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header p {
+  color: #666;
+  font-size: 1.2em;
+}
+
+/* 
+
+
+
+
+
+1900 px
+
+
+
+
+*/
+@media (max-width: 1900px) {
+  .header h1 {
+    margin: 50px auto 5px;
+  }
+}
+
+/* 
+
+
+
+
+768 px
+
+
+
+
+
+*/
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    margin: 30px auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .header h1 {
+    color: #333;
+    font-size: 1.7em;
+    margin-bottom: 10px;
+  }
+}

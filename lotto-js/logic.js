@@ -17,7 +17,8 @@ function analyzeHistoricalData() {
   numberFrequency = {};
 
   lottoHistory.forEach((draw) => {
-    draw.forEach((num) => {
+    const mainNumbers = draw.slice(0, 6);
+    mainNumbers.forEach((num) => {
       numberFrequency[num] = (numberFrequency[num] || 0) + 1;
     });
   });
@@ -60,7 +61,7 @@ function performAdvancedAnalysis() {
     .sort((a, b) => a - b); // 오름차순 정렬
 
   // ⏰ 미출현(오버듀) 최근 10회 안나온번호  역순정렬
-  const recent10Draws = lottoHistory.slice(-10);
+  const recent10Draws = lottoHistory.slice(0, 10);
 
   const recentNumbers = new Set();
   recent10Draws.forEach((draw) =>
@@ -94,14 +95,14 @@ const RARE_DATA = {
   overdue: {
     file: "overdue.mp4",
     color: "#e056fd",
-    title: "🐉 흑염룡의 봉인 해제!",
-    desc: "너무 오래 기다렸습니다.<br>어둠 속에 숨어있던 번호가<br><span class='highlight'>오늘 밤, 세상 밖으로 깨어납니다!</span>",
+    title: "🌑 심연의 지배자 각성!",
+    desc: "너무 오래 기다렸습니다.<br>어둠 속에 숨어있던 번호가<br><span class='highlight'>오늘 밤, 세상을 지배하러 올라옵니다!</span>",
   },
   random: {
     file: "random.mp4",
     color: "#FFD700",
-    title: "👑 행운의 여신 강림!!!!",
-    desc: "이것은 우연이 맞습니다! <span class='highlight'>우연</span>입니다.<br> 20%의 확률이 선택한 <span class='highlight'>기적의 조합</span>을 받아가세요!",
+    title: "👑 행운의 여신 강림!!!",
+    desc: "이것은 우연이 맞습니다! <span class='highlight'>우연</span>입니다.<br>20% 확률이 선택한 <span class='highlight'>행운의 조합</span>을 받아가세요!",
   },
 };
 
@@ -193,8 +194,8 @@ function generateStrategyNumbers(strategyType, isRare = false) {
   performAdvancedAnalysis();
 
   const numbers = [];
-  let strategyName = "";
   let message = "";
+  let title = "✨ 황금 조합 분석 완료!";
 
   // 전략에 따른 번호 조합
   switch (strategyType) {
@@ -203,7 +204,7 @@ function generateStrategyNumbers(strategyType, isRare = false) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "🔥 핫(2) + 랜덤(4) 조합";
       message =
-        "<strong style='color: #D32F2F;'>1등 단골 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다🍀";
+        "<strong style='color: #FF5252;'>1등 단골 번호 중 2개</strong>에 <br> <span style='color: #55E6C1;'>행운</span>의 랜덤 번호 <span style='color: #55E6C1;'> 4개</span>를 섞어 보았습니다🍀";
       break;
 
     case "cold":
@@ -211,7 +212,7 @@ function generateStrategyNumbers(strategyType, isRare = false) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "❄️ 콜드(2) + 랜덤(4) 조합";
       message =
-        "<strong style='color: #1A237E;'>저평가된 알짜 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호 <span style='color: #218C74;'> 4개</span>를 섞어 보았습니다🍀";
+        "<strong style='color: #8C9EFF;'>저평가된 알짜 번호 중 2개</strong>에 <br> <span style='color: #55E6C1;'>행운</span>의 랜덤 번호 <span style='color: #55E6C1;'> 4개</span>를 섞어 보았습니다🍀";
       break;
 
     case "overdue":
@@ -219,14 +220,14 @@ function generateStrategyNumbers(strategyType, isRare = false) {
       numbers.push(...selectFromPool(getAllNumbers(), 4));
       strategyName = "⏰ 미출현(2) + 랜덤(4) 조합";
       message =
-        "<strong style='color: #9C27B0;'>최근 숨어있던 번호 중 2개</strong>에 <br> <span style='color: #218C74;'>행운</span>의 랜덤 번호<span style='color: #218C74;'> 4개</span>를 섞어 보았습니다🍀";
+        "<strong style='color: #E040FB;'>최근 숨어있던 번호 중 2개</strong>에 <br> <span style='color: #55E6C1;'>행운</span>의 랜덤 번호<span style='color: #55E6C1;'> 4개</span>를 섞어 보았습니다🍀";
       break;
 
     case "random":
       numbers.push(...selectFromPool(getAllNumbers(), 6));
       strategyName = "🍀 100% 완전 랜덤 조합";
       message =
-        "<strong style='color: #ffa500;'>황금빛 기운이 감지되었습니다.</strong> <br> <span style='color: #218C74;'>행운</span>의 랜덤번호<span style='color: #218C74;'> 6개</span>를 소환했습니다!!!";
+        "<strong style='color: #FFD740;'>황금빛 기운이 감지되었습니다.</strong> <br> <span style='color: #55E6C1;'>행운</span>의 랜덤번호<span style='color: #55E6C1;'> 6개</span>를 소환했습니다!!!";
       break;
   }
 
@@ -242,11 +243,16 @@ function generateStrategyNumbers(strategyType, isRare = false) {
   // 번호 정렬
   const finalNumbers = uniqueNumbers.slice(0, 6).sort((a, b) => a - b);
 
+  if (isRare === true) {
+    const rareData = RARE_DATA[strategyType];
+    title = `<span style="color:${rareData.color}">${rareData.title}</span>`;
+    message = rareData.desc;
+  }
+
   // 화면 표시 (ui.js에 있는 함수 호출)
   displayNumbers(finalNumbers);
-  if (isRare === false) {
-    showResultModal(message);
-  }
+  // isRare 가 true 여도 모달 띄우기
+  showResultModal(message, title);
 }
 
 // 4. 일반 랜덤 번호 생성
