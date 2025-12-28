@@ -564,7 +564,7 @@
     width: 90%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1px;
+    gap: 10px;
     margin: 50px auto;
   }
 
@@ -782,7 +782,7 @@
   .stats-grid {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
     gap: 10px;
     margin: 20px 0;
   }
@@ -850,7 +850,7 @@
     margin: 5px auto;
     display: flex;
     align-items: center;
-    gap: 3px;
+    justify-content: space-evenly;
     border: 1px solid #eee;
     padding: 5px;
     border-radius: 15px;
@@ -876,7 +876,7 @@
   .balls-wrapper {
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 5px;
   }
 
   .plus-sign {
