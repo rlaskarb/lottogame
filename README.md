@@ -37,7 +37,6 @@
 
 ### Back-end & Infrastructure
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Cafe24](https://img.shields.io/badge/Cafe24-004097?style=for-the-badge&logo=cafe24&logoColor=white)
 
 ### Optimization & Tools
