@@ -185,16 +185,8 @@ function renderHistoryList() {
   // 데이터 구조: [1, 2, 3, 4, 5, 6, 7] (7번이 보너스)
   const recent10 = lottoHistory.slice(0, 10);
 
-  // 2. 현재 최신 회차 번호 계산 (1204회부터 시작한다고 가정)
-  // (주의: 정확한 회차 계산이 필요하면 api.js의 calculateCurrentRound 활용 필요)
-  // 여기서는 단순히 총 개수에서 하나씩 빼면서 표시하는 방식 예시입니다.
-  // 만약 lotto.json에 회차 정보가 없다면, 1204회부터 역산하거나 별도 로직 필요.
-  // 일단 김남규님의 최신 데이터가 1204회(가정)라면:
-  let currentRound = 1204; // ▲▲ 이 부분은 나중에 자동으로 되게 고칠 수 있습니다.
-
   recent10.forEach((row, index) => {
-    // 실제 회차: (전체개수 - 인덱스) 방식이 더 정확할 수 있습니다.
-    // 여기선 일단 예시로 보여줍니다.
+    // 1. 회차 계산: (전체 길이 - 인덱스) = 현재 줄의 회차
     const roundNum = lottoHistory.length - index;
 
     // 3. 한 줄(Row) 만들기

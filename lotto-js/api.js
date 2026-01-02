@@ -1,12 +1,12 @@
-// js/api.js - 앱의 실행 및 외부 통신 담당
+// js/api.js - 앱의 실행 및 데이터 로드 담당 (심플 버전)
 
 // 1. 페이지 로드 시 초기화 (앱의 시작점)
 window.onload = async function () {
-  console.log("앱 시작: 데이터 로드 중...");
+  console.log("앱 시작: 로컬 데이터 로드 중...");
 
-  // ▼ [핵심 변경] 로컬 스토리지 확인 안 하고, 무조건 JSON 파일 불러옵니다.
-  // 캐시 문제 방지를 위해 뒤에 시간(?v=...)을 붙여서 항상 새 파일을 가져오게 합니다.
   try {
+    // 1. 내 서버에 있는 lotto.json 파일 가져오기
+    // (?v=... 는 브라우저가 옛날 파일 기억하지 못하게 하는 캐시 방지용)
     const response = await fetch(
       "lotto-data/lotto.json?v=" + new Date().getTime()
     );
@@ -18,64 +18,63 @@ window.onload = async function () {
     const data = await response.json();
 
     if (data && data.history) {
-      // data.js에 있는 전역 변수 lottoHistory에 데이터 채우기
+      // 2. 데이터 전역 변수에 담기
       lottoHistory = data.history;
+      console.log(
+        "✅ JSON 데이터 로드 성공! (총 " + lottoHistory.length + "회)"
+      );
 
-      console.log("JSON 데이터 로드 성공!");
+      // 3. 통계 분석 및 UI 그리기 (기존 로직 수행)
+      analyzeHistoricalData(); // 통계 분석
+      updateStatistics(); // 통계 UI 업데이트
+      generateFrequencyChart(); // 빈도 차트
+      performAdvancedAnalysis(); // 고급 분석 (Hot/Cold)
+      updateAdvancedAnalysis(); // 고급 분석 UI
+      renderHistoryList(); // 하단 리스트 그리기
 
-      // 2. 분석 및 화면 업데이트 (데이터가 준비됐으니 화면 그리기)
-      analyzeHistoricalData(); // 통계 분석 (logic.js)
-      updateStatistics(); // 통계 UI 표시 (ui.js)
-      generateFrequencyChart(); // 차트 그리기 (ui.js)
-      performAdvancedAnalysis(); // 고급 분석 (logic.js)
-      updateAdvancedAnalysis(); // 고급 분석 UI (ui.js)
-      renderHistoryList();
-
-      // 3. 최신 회차 API 호출 (이번 주 당첨 확인용)
-      const currentRound = calculateCurrentRound();
-      fetchLatestLotto(currentRound);
+      // ▼▼▼ [핵심 변경] 외부 API 안 부르고, 내 파일의 맨 첫 번째 걸 씁니다! ▼▼▼
+      loadLatestFromLocal();
     } else {
       console.error("lotto.json 데이터 형식이 잘못되었습니다.");
       alert("데이터 형식이 올바르지 않습니다.");
     }
   } catch (error) {
-    console.error("lotto.json 로드 실패:", error);
-    alert(
-      "로또 데이터를 불러오는 데 실패했습니다. 인터넷 연결을 확인해주세요."
-    );
+    console.error("데이터 로드 실패:", error);
+    alert("데이터를 불러오는 데 실패했습니다.");
   }
 };
 
-// 2. 외부 API를 통해 최신 당첨 번호 가져오기 (동행복권/API)
-async function fetchLatestLotto(round) {
-  const drawRoundElement = document.getElementById("drawRound");
+// [신규 함수] 로컬 데이터(lotto.json)에서 최신 회차 꺼내서 보여주기
+function loadLatestFromLocal() {
+  // lottoHistory는 최신순으로 정렬되어 있다고 가정 (맨 위가 최신)
+  // 데이터 구조: [회차, 번호1, 번호2, 번호3, 번호4, 번호5, 번호6, 보너스]
 
-  // 혹시 모를 UI 에러 방지
-  if (!drawRoundElement) return;
-
-  try {
-    const response = await fetch(`lotto-data/get_lotto.php?drwNo=${round}`);
-    const data = await response.json();
-
-    if (data.returnValue === "success") {
-      displayLatestDraw(data); // ui.js 함수 호출
-    } else {
-      // 아직 토요일 추첨 전이라 데이터가 없으면 -> 1주 전 회차를 보여줌
-      console.log(`${round}회차 정보 없음. 이전 회차 로드 시도.`);
-      // 재귀 호출로 전 회차 검색
-      fetchLatestLotto(round - 1);
-    }
-  } catch (error) {
-    console.error("최신 회차 조회 실패:", error);
-    drawRoundElement.textContent = "⚠️ 당첨 정보를 불러올 수 없습니다.";
+  if (!lottoHistory || lottoHistory.length === 0) {
+    document.getElementById("drawRound").textContent = "데이터 없음";
+    return;
   }
-}
 
-// 3. 현재 로또 회차 계산 함수 (자동 계산)
-function calculateCurrentRound() {
-  const firstDrawDate = new Date("2002-12-07T21:00:00");
-  const today = new Date();
-  const diffTime = today - firstDrawDate;
-  const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
-  return diffWeeks + 1;
+  // 1. 맨 첫 번째 데이터(최신) 가져오기
+  const latestData = lottoHistory[0];
+
+  // 2. ✨ [자동 계산] 전체 개수가 곧 최신 회차 번호입니다!
+  const currentRound = lottoHistory.length;
+
+  // 3. 데이터 포맷 맞추기
+  // 주의: JSON에 회차 번호가 없으므로, 인덱스가 0부터 시작합니다!
+  const formattedData = {
+    drwNo: currentRound, // 계산된 회차 번호
+    drwtNo1: latestData[0], // 첫 번째 숫자 (인덱스 0)
+    drwtNo2: latestData[1],
+    drwtNo3: latestData[2],
+    drwtNo4: latestData[3],
+    drwtNo5: latestData[4],
+    drwtNo6: latestData[5],
+    bnusNo: latestData[6], // 보너스 숫자 (인덱스 6)
+  };
+
+  console.log(`📱 로컬 데이터 로드 완료: ${currentRound}회차`);
+
+  // 3. 화면에 그리기 (ui.js 함수 호출)
+  displayLatestDraw(formattedData);
 }
