@@ -33,7 +33,7 @@ function performAdvancedAnalysis() {
 
   // 빈도수 계산
   allDraws.forEach((draw) => {
-    draw.forEach((num) => {
+    draw.slice(0, 6).forEach((num) => {
       totalFrequency[num] = (totalFrequency[num] || 0) + 1;
     });
   });
@@ -60,13 +60,16 @@ function performAdvancedAnalysis() {
     .map((item) => parseInt(item[0]))
     .sort((a, b) => a - b); // 오름차순 정렬
 
-  // ⏰ 미출현(오버듀) 최근 10회 안나온번호  역순정렬
+  // ⏰ 미출현(오버듀) 최근 10회 안나온번호
   const recent10Draws = lottoHistory.slice(0, 10);
 
   const recentNumbers = new Set();
-  recent10Draws.forEach((draw) =>
-    draw.forEach((num) => recentNumbers.add(num))
-  );
+
+  recent10Draws.forEach((draw) => {
+    const mainNumbers = draw.slice(0, 6);
+
+    mainNumbers.forEach((num) => recentNumbers.add(num));
+  });
 
   advancedStats.overdueNumbers = [];
   for (let i = 1; i <= 45; i++) {
@@ -353,7 +356,7 @@ function saveToMyHistory(numbers, type, isRare) {
 function renderMyHistory() {
   const listContainer = document.getElementById("myNumberList");
   const myHistory = JSON.parse(
-    localStorage.getItem("my_lotto_history") || "[]"
+    localStorage.getItem("my_lotto_history") || "[]",
   );
 
   if (myHistory.length === 0) {
