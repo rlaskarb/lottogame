@@ -79,6 +79,12 @@ body {
 
 */
 @media (max-width: 1900px) {
+  .container {
+    width: 100%;
+    margin: 20px auto;
+    border-radius: 20px;
+  }
+
   .header h1 {
     margin: 50px auto 5px;
   }

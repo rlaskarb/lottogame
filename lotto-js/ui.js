@@ -100,9 +100,8 @@ function displayNumbers(numbers) {
 
 // 7. 최신 당첨 번호 그리기 (API 결과)
 function displayLatestDraw(data) {
-  document.getElementById(
-    "drawRound"
-  ).textContent = `🎯 제 ${data.drwNo}회 당첨 번호`;
+  document.getElementById("drawRound").textContent =
+    `🎯 제 ${data.drwNo}회 당첨 번호`;
 
   const container = document.getElementById("latestNumbers");
   container.innerHTML = "";
@@ -169,7 +168,7 @@ function showStrategyInfo(strategy) {
   };
   setTimeout(() => {
     alert(
-      `사용된 전략: ${strategyNames[strategy]}\n\n이 전략은 과거 데이터 분석을 바탕으로 선택되었습니다.`
+      `사용된 전략: ${strategyNames[strategy]}\n\n이 전략은 과거 데이터 분석을 바탕으로 선택되었습니다.`,
     );
   }, 1000);
 }
@@ -200,7 +199,7 @@ function renderHistoryList() {
 
     // 5. 오른쪽: 공 묶음
     const ballsDiv = document.createElement("div");
-    ballsDiv.className = "balls-wrapper";
+    ballsDiv.className = "ten-wrapper";
 
     // 5-1. 당첨 번호 6개 그리기
     for (let i = 0; i < 6; i++) {
@@ -210,17 +209,17 @@ function renderHistoryList() {
       const colorClass = getBallColorClass(num);
 
       // number-circle 클래스도 넣고, history-ball로 크기 덮어쓰기
-      const ballHtml = `<div class="number-circle ${colorClass} history-ball">${num}</div>`;
+      const ballHtml = `<div class="number-circle ${colorClass} history-ball ten-ball">${num}</div>`;
       ballsDiv.innerHTML += ballHtml;
     }
 
     // 5-2. 더하기 기호 (+)
-    ballsDiv.innerHTML += `<span class="plus-sign">+</span>`;
+    ballsDiv.innerHTML += `<span class="plus-sign ">+</span>`;
 
     // 5-3. 보너스 번호 (7번째 숫자 = 인덱스 6)
     const bonusNum = row[6];
     const bonusColor = getBallColorClass(bonusNum);
-    ballsDiv.innerHTML += `<div class="number-circle ${bonusColor}">${bonusNum}</div>`;
+    ballsDiv.innerHTML += `<div class="number-circle ten-ball ${bonusColor}">${bonusNum}</div>`;
 
     // 6. 합치기
     rowDiv.appendChild(badge);
@@ -240,7 +239,7 @@ function renderHistoryList() {
 
   // 로컬 스토리지에서 기록 가져오기
   let accessHistory = JSON.parse(
-    localStorage.getItem("access_history") || "[]"
+    localStorage.getItem("access_history") || "[]",
   );
   const now = Date.now();
 
@@ -256,7 +255,7 @@ function renderHistoryList() {
   // 4. 횟수 체크: 3초 안에 5번 이상 들어왔다면?
   if (accessHistory.length > MAX_REFRESH) {
     alert(
-      "⚠️ 접속 요청이 너무 빠릅니다.\n서버 보호를 위해 잠시 후 다시 시도해주세요."
+      "⚠️ 접속 요청이 너무 빠릅니다.\n서버 보호를 위해 잠시 후 다시 시도해주세요.",
     );
 
     // (선택) 아예 화면을 하얗게 만들어버려서 버튼 못 누르게 하기
